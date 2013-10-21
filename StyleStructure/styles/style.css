@@ -1,0 +1,255 @@
+#body
+{
+	overflow:auto;
+	background-color:#00F;
+}
+
+#friends
+{
+	position: fixed;
+	top: 8%;
+	left: 80%;
+	height: 92%;
+	width: 20%;
+	background-color: #0F0;
+}
+
+#heading
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	height: 8%;
+	width: 100%;
+	background-color: #F90;
+	z-index:2;
+}
+
+#men-prot
+{
+	position: absolute;
+	top: 8%;
+	left: 10%;
+	width: 70%;
+}
+
+#menu
+{
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 20%;
+	background-color: #F0F;
+}
+
+#protokoll
+{
+	position: absolute;
+	top: 0%;
+	left: 20%;
+	width: 80%;
+	background-color: #F00;
+}
+
+.over
+{
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 9%;
+	z-index: -1;
+}
+
+.heading
+{
+	font-family: impact; 
+	font-size: 20px;
+}
+
+.friends
+{
+	position: fixed;
+	top: 10.5%;
+	left: 80%;
+	height: 100%;
+	width: 20%;
+	background-color: #AFABAB;
+	z-index: -2;
+	border-left: 3px solid black;
+}
+
+.chat
+{
+	position: fixed;
+	top: 10.5%;
+	left: 0%;
+	height: 100%;
+	width: 80%;
+	background-color: #AFABAB;
+	z-index: -2;
+}
+
+.menu
+{
+	position: fixed;
+	top: 10.5%;
+	left: 0%;
+	height: 100%;
+	width: 20%;
+	background-color: #AFABAB;
+	z-index: -2;
+	border-right: 3px solid black;
+}
+
+.write
+{
+	position: absolute;
+	top: 68%;
+	left: 47.5%;
+}
+
+.show_text
+{
+	position: absolute;
+	top: 10%;
+	left: 47.5%;
+	height: 64%;
+	width: 30%;
+	background-color: #FFF;
+	overflow: scroll;
+	border: 2px solid black;
+	padding-left: 7px;
+}
+
+.blue
+{
+	color: blue;
+}
+
+.green
+{
+	color: green;
+}
+
+.pic
+{
+	position: absolute;
+	top: 10%;
+	left: 40%;
+}
+
+.head_name
+{
+	position: absolute;
+	top: 18%;
+	left: 38%;
+	height: 2%;
+	width: 24.3%;
+	background-color: #F00;
+	border: 2px solid black;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.search_friends
+{
+	position: fixed;
+	top: 10.5%;
+	left: 20%;
+	height: 100%;
+	width: 60%;
+	background-color: #AFABAB;
+	z-index: -2;
+}
+
+.search_bar
+{
+	position: fixed;
+	top: 20%;
+	left: 40%;
+}
+
+.show_friends
+{
+	position: fixed;
+	top: 30%;
+	left: 40%;
+	width: 100px;
+	height: 100px;
+}
+
+.main_field
+{
+	position: fixed;
+	top: 10%;
+	left: 0%;
+	height: 100%;
+	width: 100%;
+	background-color: #AFABAB;
+	z-index: -2;
+}
+
+.question
+{
+	font-size: 30px;
+}
+
+.causes
+{
+	position: fixed;
+	top: 24%;
+	left: 3%;
+	height: 100%;
+	width: 50%;
+	background-color: #AFABAB;
+	z-index: -2;
+	font-family: franklin gothic medium; 
+	font-size: 20px;
+}
+
+.register_form
+{
+	position: fixed;
+	top: 29%;
+	right: 5%;
+	height: 63%;
+	width: 40%;
+	background-color:#c0c0c0;
+	text-align: center;
+	padding: 10px;
+	border: 6px solid #ddd;
+	width: 700px; 
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	z-index: -2;
+}
+
+.register_head
+{
+	position: fixed;
+	top: 24%;
+	right: 33%;
+	width: 10%;
+	background-color: #AFABAB;
+	z-index: -2;
+	font-family: franklin gothic medium; 
+	font-size: 30px;
+}
+
+.login_field
+{
+	position: fixed;
+	top: 2%;
+	right: 0%;
+	width: 25%;
+}
+
+.pro_points
+{
+	width: 5px;
+	height: 5px;
+	border-radius: 2.5px;
+	background-color: #F00;
+}

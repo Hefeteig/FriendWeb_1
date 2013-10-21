@@ -1,0 +1,127 @@
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<title>FriendWeb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/icon" href="pics/favicon.ico" />
+		<link href="lib/Bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
+		<link href="lib/Bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link rel="stylesheet" href="StyleStructure/styles/style.css" type="text/css" media="all" />
+	</head>
+	<body>
+		<div class="navbar navbar-inverse over">
+			<div class="navbar-inner">
+				<div class="container">
+					
+					<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</a>
+					 
+					<!-- Be sure to leave the brand out there if you want it shown -->
+					<a class="brand" href="index.php"><img src="pics/friendweb_F.png" /></a>
+					 
+					<!-- Everything you want hidden at 940px or less, place within here -->
+					<div class="nav-collapse collapse">
+					<!-- .nav, .navbar-search, .navbar-form, etc -->
+					
+						<div class="heading">
+							<ul class="nav nav-tabs">
+								<br><br><br>
+								<li class="active"><a href="index.php">Startseite</a></li>
+								<li class="disabled"><a href="faq.php">FAQ</a></li>
+								<li class="disabled"><a href="contact.php">Kontakt</a></li>
+							</ul>
+							<form class="navbar-form login_field" action="login.php" method="post">
+								<input name="email" class="span2" type="text" placeholder="E-Mail"/>&nbsp;&nbsp;
+								<input name="password" class="span2" type="password" placeholder="Passwort"/>
+								<button type="submit" class="btn">Einloggen</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{ if_failed | raw }}
+		<noscript>
+			<div class="alert">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Achtung!</strong> Ohne JavaScript kannst du einige Funktionen dieser Seite nicht benutzen.
+			</div>
+		</noscript>
+		
+		<div class="main_field">
+			<div class="causes">
+				<div class="question">Was ist FriendWeb?</div><br /><br />
+				FriendWeb ist ein soziales Netzwek, welches dir schnelle, sichere und anonyme Kommunikation ermöglicht.<br /><br /><br /><br />
+				<div class="question">Warum FriendWeb?</div><br /><br />
+				<b>-</b> User können FriendWeb ganz leicht selbst gestalten, z.B Farben ändern<br /><br />
+				<b>-</b> keine Speicherung von Daten wie IP, Referrer oder ähnliches<br /><br />
+				<b>-</b> Mail-Service: User können 15 E-Mails pro Tag von einer beliebigen Absenderadresse versenden<br /><br />
+				<b>-</b> keine Nutzeridentifizierung möglich, da keine Logs<br /><br />
+				<b>-</b> stetige Weiterentwicklung, z.B. neue Plugins und verbesserte Sicherheitsmaßnahmen<br /><br />
+				<b>-</b> keine Datenweitergabe an Drittanbieter<br /><br />
+				<b>-</b> kostenlos<br /><br />
+				<b>-</b> Bug Bounty Programm: Für das Melden von Fehlern und Sicherheitslücken gibt es Belohnungen wie:<br /><br />&nbsp;&nbsp;&nbsp;- eine Erhöhung des Mail-Service-Limits<br />&nbsp;&nbsp;&nbsp;- der Erhalt eines Plugins schon 1 Woche vor dem offiziellen Start<br />&nbsp;&nbsp;&nbsp;...<br /><br />
+				<b>-</b> Du kannst Vorschläge und Verbesserungsmöglichkeiten einreichen<br /><br />
+			</div>
+			
+			<div class="register_head">
+				Registrieren:
+			</div>
+				<form name="register" action="ready.php" method="post" class="register_form">
+						{{ register | raw }}
+					<fieldset>
+						<legend>Kontaktdaten</legend>
+						<table>
+						  <tr>
+							<td>Benutzername:</td>
+							<td><input id="name" type="text" size="40" maxlength="50" name="Name" value="{{ name }}"></td>
+						  </tr><tr>
+							<td>E-Mail-Adresse:</td>
+							<td><input id="email" type="text" size="40" maxlength="50" name="Mail" value="{{ mail }}"></td>
+						  </tr>
+						</table>
+					</fieldset>
+
+					<br><br>
+
+					<fieldset>
+						<legend>Passwort</legend>
+						<table>
+						  <tr>
+							<td>Passwort eingeben:</td>
+							<td><input type="password" size="40" maxlength="50" name="Passwort_1"></td>
+						  </tr><tr>
+							<td>Passwort wiederholen:</td>
+							<td><input type="password" size="40" maxlength="50" name="Passwort_2"></td>
+						  </tr>
+						</table>
+					</fieldset>
+					<br />
+					<b>Achtung:</b> Leerzeichen am Anfang und Ende des Namens und der E-Mail-Adresse werden entfernt.
+					<br /><br />
+					<div>
+						<button type="submit" class="btn btn-primary">Absenden</button>
+					</div>
+				</form>
+		</div>
+		
+		<script src="lib/Bootstrap/js/jquery.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-transition.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-alert.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-modal.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-dropdown.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-scrollspy.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-tab.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-tooltip.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-popover.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-button.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-collapse.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-carousel.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap-typeahead.js"></script>
+	</body>
+</html>
