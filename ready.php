@@ -34,12 +34,30 @@
 		{
 			$error = "Passw&ouml;rter stimmen nicht überein";
 		}
-		elseif(filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE){$error = "Keine g&uuml;ltige E-Mail";}
-		elseif(preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2'])){$error = "Fehlerhafte Ausdrücke eingegeben";}
-		elseif($user_exist[0]){$error = "Nutzername schon vergeben";}
-		elseif($email_exist[0]){$error = "E-Mail existiert bereits";}
-		elseif(preg_match("((drop)|(delete)|(table)|(--)|(;))", $_POST['Name'] . $_POST['Mail']. $_POST['Passwort_1'] . $_POST['Passwort_2'])){$error = "<img src='pics/injection.png' alt='injection.png'<br /><br /><b>Inject the whole SQL-query...</b>";}
-		else{$error = "Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.";}
+		elseif(filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE)
+		{
+			$error = "Keine g&uuml;ltige E-Mail";
+		}
+		elseif(preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2']))
+		{
+			$error = "Fehlerhafte Ausdrücke eingegeben";
+		}
+		elseif($user_exist[0])
+		{
+			$error = "Nutzername schon vergeben";
+		}
+		elseif($email_exist[0])
+		{
+			$error = "E-Mail existiert bereits";
+		}
+		elseif(preg_match("((drop)|(delete)|(table)|(--)|(;))", $_POST['Name'] . $_POST['Mail']. $_POST['Passwort_1'] . $_POST['Passwort_2']))
+		{
+			$error = "<img src='pics/injection.png' alt='injection.png'<br /><br /><b>Inject the whole SQL-query...</b>";
+		}
+		else
+		{
+			$error = "Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.";
+		}
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
