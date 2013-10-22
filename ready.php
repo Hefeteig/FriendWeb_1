@@ -26,8 +26,14 @@
 		or $user_exist[0] or $email_exist[0])
 	{
 		//Fehler definieren
-		if(empty ($_POST['Mail']) == 1 or empty ($_POST['Name']) == 1 or empty ($_POST['Passwort_1']) == 1 or empty ($_POST['Passwort_2']) == 1){$error = "Bitte f&uuml;lle alle Felder aus";}
-		elseif ($_POST['Passwort_1'] != $_POST['Passwort_2']){$error = "Passw&ouml;rter stimmen nicht überein";}
+		if(empty ($_POST['Mail']) == 1 or empty ($_POST['Name']) == 1 or empty ($_POST['Passwort_1']) == 1 or empty ($_POST['Passwort_2']) == 1)
+		{
+			$error = "Bitte f&uuml;lle alle Felder aus";
+		}
+		elseif ($_POST['Passwort_1'] != $_POST['Passwort_2'])
+		{
+			$error = "Passw&ouml;rter stimmen nicht überein";
+		}
 		elseif(filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE){$error = "Keine g&uuml;ltige E-Mail";}
 		elseif(preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2'])){$error = "Fehlerhafte Ausdrücke eingegeben";}
 		elseif($user_exist[0]){$error = "Nutzername schon vergeben";}
