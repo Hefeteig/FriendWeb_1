@@ -30,7 +30,7 @@
 		$connect = mysqli_connect("localhost", "root", "XAMPPpassword");
 		mysqli_select_db($connect, "friendweb");
 		$plg;
-		$result = mysqli_query($connect, "SELECT `plugins` FROM `users` WHERE `userid` = '".$id."'");
+		$result = mysqli_query($connect, "SELECT `plugin` FROM `activatedplugins` WHERE `user` = '".$id."'");
 		
 		while ($data=mysqli_fetch_array($result))
 		{

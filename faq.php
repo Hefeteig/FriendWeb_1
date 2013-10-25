@@ -4,8 +4,9 @@
 		<title>FriendWeb - FAQ</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/icon" href="pics/favicon.ico" />
-		<link href="lib/Bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
-		<link href="lib/Bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="lib/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="StyleStructure/styles/style.css" type="text/css" media="all" />
 	</head>
 	<body>

@@ -19,7 +19,6 @@
 	$user_exist = mysqli_fetch_row($user_exist);
 	$email_exist = mysqli_query($sql, $email_query);
 	$email_exist = mysqli_fetch_row($email_exist);
-	$asdf = '';
 	if (empty ($_POST['Mail']) == 1 or empty ($_POST['Name']) == 1 or empty ($_POST['Passwort_1']) == 1 or empty ($_POST['Passwort_2']) == 1 or $_POST['Passwort_1'] != $_POST['Passwort_2'] or filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE
 		or preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2'])
 		or preg_match("((drop)|(delete)|(table)|(--)|(;))", $_POST['Name'] . $_POST['Mail']. $_POST['Passwort_1'] . $_POST['Passwort_2'])
@@ -73,6 +72,7 @@
 	}
 	else
 	{
+		
 		//E-Mail vorbereiten und senden
 		$absender = "FriendWeb <friend@web.de>";
 		$headers   = array();
@@ -100,8 +100,15 @@
 		
 		$salt = $email;
 		$saltedHash = saltPassword($password, $salt);
-		$insert = "INSERT INTO `users` (`name`, `email`, `password`) VALUES ('".$user."', '".$email."', '".$saltedHash."')";
-		mysqli_query($sql, $insert);
+		
+		$get_userid = "SELECT * FROM `users`";
+		$users = mysqli_query($sql, $get_userid);
+		$userid = mysqli_num_rows($users);
+		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 0)";
+		mysqli_query($sql, $insert_users);
+		
+		$insert_activatedplugins = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure;StyleStructure', '".$userid."')";
+		mysqli_query($sql, $insert_activatedplugins);
 		
 		//Erfolgsmeldung
 		require_once 'lib/Twig/Autoloader.php';

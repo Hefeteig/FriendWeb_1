@@ -2,10 +2,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>FriendWeb</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/icon" href="pics/favicon.ico" />
-		<link href="lib/Bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
-		<link href="lib/Bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="lib/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="lib/Bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="StyleStructure/styles/style.css" type="text/css" media="all" />
 	</head>
 	<body>
@@ -35,8 +36,8 @@
 								<li class="disabled"><a href="contact.php">Kontakt</a></li>
 							</ul>
 							<form class="navbar-form login_field" action="login.php" method="post">
-								<input name="email" class="span2" type="text" placeholder="E-Mail"/>&nbsp;&nbsp;
-								<input name="password" class="span2" type="password" placeholder="Passwort"/>
+								<input name="email" class="span2" type="text" size="30" maxlength="150" placeholder="E-Mail"/>&nbsp;&nbsp;
+								<input name="password" class="span2" type="password" size="30" maxlength="150" placeholder="Passwort"/>
 								<button type="submit" class="btn">Einloggen</button>
 							</form>
 						</div>
