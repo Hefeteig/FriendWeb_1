@@ -2,5 +2,5 @@ function MainStructure(){};
 
 MainStructure.init = function()
 {
-    alert("1");
+    alert("MainStructure");
 };

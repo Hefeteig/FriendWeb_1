@@ -29,7 +29,11 @@
 		}
 		$connect = mysqli_connect("localhost", "root", "XAMPPpassword");
 		mysqli_select_db($connect, "friendweb");
+		
 		$plg = array();
+		$result = array();
+		$id = $id[0];
+		
 		$result = mysqli_query($connect, "SELECT `plugin` FROM `activatedplugins` WHERE `user` = '".$id."'");
 		
 		while ($data = mysqli_fetch_array($result))

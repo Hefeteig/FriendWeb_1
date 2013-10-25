@@ -14,12 +14,13 @@
 		
 		// Erzeugung von Passwort-Hash mit Salt
 			//db = database und dc = document
-		function saltPassword($password, $salt)
+		function saltPassword($pe)
 		{
-			 return hash('sha512', $salt.$password);
+			 return hash('sha512', $pe);
 		}
-		$salt = $email;
-		$dc_saltedHash = saltPassword($password, $salt);
+		
+		$pe = $password . $email;
+		$dc_saltedHash = saltPassword($pe);
 		
 		// Prüfen
 		$load = "SELECT `password` FROM `users` WHERE `email` = '".$email."'";
@@ -28,6 +29,13 @@
 		$is_active = "SELECT `active` FROM `users` WHERE `email` = '".$email."'";
 		$activated = mysqli_query($sql, $is_active);
 		$activated = mysqli_fetch_row($activated);
+		
+		/*
+		echo $db_saltedHash[0] . "<br />";
+		echo $dc_saltedHash . "<br />";
+		$test = saltPassword('', $salt);
+		echo $test . "<br />";
+		*/
 		
 		//Eventuellen Fehler definieren
 		if ($db_saltedHash[0] != $dc_saltedHash)

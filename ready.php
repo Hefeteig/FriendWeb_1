@@ -93,13 +93,13 @@
 		mail ($email, "Registrierung bei FriendWeb", $content, implode("\r\n",$headers));
 		
 		//Passwort-Hash mit Salt erstellen und in DB eintragen
-		function saltPassword($password, $salt)
+		function saltPassword($pe)
 		{
-			 return hash('sha512', $salt.$password);
+			 return hash('sha512', $pe);
 		}
 		
-		$salt = $email;
-		$saltedHash = saltPassword($password, $salt);
+		$pe = $password . $email;
+		$saltedHash = saltPassword($pe);
 		
 		$get_userid = "SELECT * FROM `users`";
 		$users = mysqli_query($sql, $get_userid);
