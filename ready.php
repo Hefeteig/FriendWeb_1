@@ -101,9 +101,12 @@
 		$pe = $password . $email;
 		$saltedHash = saltPassword($pe);
 		
-		$get_userid = "SELECT * FROM `users`";
+		$get_userid = "SELECT `name` FROM `users`";
 		$users = mysqli_query($sql, $get_userid);
-		$userid = mysqli_num_rows($users);
+		$userid = mysqli_num_rows($users) + 1;
+		echo $userid;
+		
+		//$userid = 5;
 		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 0)";
 		mysqli_query($sql, $insert_users);
 		

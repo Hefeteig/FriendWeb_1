@@ -41,7 +41,7 @@
 		}
 		else
 		{
-			$error = "Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.";
+			$error = "Ein unbekannter Fehler ist aufgetreten. Wenn du Cookies trotzdem aktiviert hast, <a href='contact.php'>kontaktiere</a> bitte den Administrator.";
 		}
 		
 		if($db_saltedHash[0] == $dc_saltedHash && $activated[0] == 1)
