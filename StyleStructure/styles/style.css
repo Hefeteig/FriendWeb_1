@@ -1,3 +1,16 @@
+
+.menu_style
+{
+	font-family: 'Arial';
+	font-size: 125%;
+}
+
+.right
+{
+	position: absolute;
+	left: 92%;
+	top: 40;
+}
 #body
 {
 	overflow:auto;
@@ -7,11 +20,12 @@
 #friends
 {
 	position: fixed;
-	top: 8%;
+	top: 10.5%;
 	left: 80%;
 	height: 92%;
 	width: 20%;
 	background-color: #0F0;
+	z-index: -1;
 }
 
 #heading
@@ -25,30 +39,14 @@
 	z-index: 2;
 }
 
-#men-prot
-{
-	position: absolute;
-	top: 8%;
-	left: 10%;
-	width: 70%;
-}
-
-#menu
-{
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	width: 20%;
-	background-color: #F0F;
-}
-
 #protokoll
 {
 	position: absolute;
-	top: 0%;
-	left: 20%;
+	top: 10.5%;
+	left: 0%;
 	width: 80%;
 	background-color: #F00;
+	z-index: -1;
 }
 
 .over
@@ -74,7 +72,6 @@
 	height: 100%;
 	width: 20%;
 	background-color: #AFABAB;
-	z-index: -2;
 	border-left: 3px solid black;
 }
 
@@ -86,7 +83,6 @@
 	height: 100%;
 	width: 80%;
 	background-color: #AFABAB;
-	z-index: -2;
 }
 
 .menu
@@ -97,7 +93,6 @@
 	height: 100%;
 	width: 20%;
 	background-color: #AFABAB;
-	z-index: -2;
 	border-right: 3px solid black;
 }
 
@@ -159,7 +154,6 @@
 	height: 100%;
 	width: 60%;
 	background-color: #AFABAB;
-	z-index: -2;
 }
 
 .search_bar
@@ -186,7 +180,7 @@
 	height: 100%;
 	width: 100%;
 	background-color: #AFABAB;
-	z-index: -2;
+	z-index: -1;
 }
 
 .question
@@ -202,7 +196,6 @@
 	height: 100%;
 	width: 50%;
 	background-color: #AFABAB;
-	z-index: -2;
 	font-family: franklin gothic medium; 
 	font-size: 20px;
 }
@@ -223,7 +216,6 @@
 	-khtml-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	z-index: -2;
 }
 
 .register_head
@@ -233,7 +225,6 @@
 	right: 33%;
 	width: 10%;
 	background-color: #AFABAB;
-	z-index: -2;
 	font-family: franklin gothic medium; 
 	font-size: 30px;
 }

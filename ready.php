@@ -107,11 +107,6 @@
 		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 0)";
 		mysqli_query($sql, $insert_users);
 		
-		$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
-		$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
-		mysqli_query($sql, $insert_activatedplugins_1);
-		mysqli_query($sql, $insert_activatedplugins_2);
-		
 		//Erfolgsmeldung
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();

@@ -29,12 +29,17 @@
 					<!-- .nav, .navbar-search, .navbar-form, etc -->
 					
 						<div class="heading">
-							<ul class="nav nav-tabs">
-								<br><br><br>
-								<li class="disbaled"><a href="index.php">Startseite</a></li>
-								<li class="disabled"><a href="faq.php">FAQ</a></li>
-								<li class="active"><a href="contact.php">Kontakt</a></li>
-							</ul>
+							<br><br>
+								<a href="index.php"><button class="btn btn-large btn-primary" type="button"><i class="icon-home"></i> Startseite</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-globe"></i> News</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-question-sign"></i> FAQ</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-bullhorn"></i> Kontakt</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-list-alt"></i> Impressum</button></a>
+								
 							<form class="navbar-form login_field" action="login.php" method="post">
 								<input name="email" class="span2" type="text" placeholder="E-Mail"/>&nbsp;&nbsp;
 								<input name="password" class="span2" type="password" placeholder="Passwort"/>

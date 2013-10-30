@@ -29,12 +29,17 @@
 					<!-- .nav, .navbar-search, .navbar-form, etc -->
 					
 						<div class="heading">
-							<ul class="nav nav-tabs">
-								<br><br><br>
-								<li class="disbaled"><a href="index.php">Startseite</a></li>
-								<li class="active"><a href="faq.php">FAQ</a></li>
-								<li class="disabled"><a href="contact.php">Kontakt</a></li>
-							</ul>
+							<br><br>
+								<a href="index.php"><button class="btn btn-large btn-primary" type="button"><i class="icon-home"></i> Startseite</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-globe"></i> News</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-question-sign"></i> FAQ</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-bullhorn"></i> Kontakt</button></a>&nbsp;&nbsp;
+								
+								<a href=""><button class="btn btn-large btn-primary" type="button"><i class="icon-list-alt"></i> Impressum</button></a>
+								
 							<form class="navbar-form login_field" action="login.php" method="post">
 								<input name="email" class="span2" type="text" placeholder="E-Mail"/>&nbsp;&nbsp;
 								<input name="password" class="span2" type="password" placeholder="Passwort"/>
@@ -56,10 +61,10 @@
 			<div class="causes">
 				<div class="question">FAQ:</div><br /><br />
 				<b>-</b> Wie wird alles <b>finanziert</b>? Antwort: Bisher ausschlie&szlig;lich aus eigener Tasche des Administrators.<br /><br />
-				<b>-</b> Wie lange wird der <b>Chat gespeichert</b>? Antwort: Nur so lange bis sich der Nutzer, der die Nachricht geschrieben hat, sich ausloggt.<br /><br />
+				<b>-</b> Wie lange wird der <b>Chatverlauf gespeichert</b>? Antwort: Alle Nachrichten werden an jeden Monatsbeginn gelöscht.<br /><br />
 				<b>-</b> Was wird alles <b>gespeichert</b>? Antwort: Nutzername, E-Mail, Passwort und Registrierungsdatum. Nat&uuml;rlich nicht im Klartext, sondern nur die gehashten Werte.<br /><br />
 				<b>-</b> Wo kann ich <b>Vorschl&auml;ge f&uuml;r Plugins</b> einreichen? Antwort: Schreib einfach eine E-Mail mit den Betreff "Vorschlag f&uuml;r Plugin" an contact@friend-web.de und wir antworten in 2-3 Werktagen.<br /><br />
-				<b>-</b> Wird FriendWeb <b>mir E-Mails schreiben</b>? Antwort: Nur zur Accountbest&auml;tigung, andere Informationen werden von FriendWeb nur in der Kategorie "News" mitgeteilt. Falls du eine E-Mail von FriendWeb bekommen hast, ist diese eine Phishing E-Mail.<br /><br />
+				<b>-</b> Wird FriendWeb <b>mir E-Mails schreiben</b>? Antwort: Nur zur Accountbest&auml;tigung, andere Informationen werden von FriendWeb nur in der Kategorie "News" mitgeteilt. Falls du doch eine E-Mail von FriendWeb bekommen hast, ist diese eine Phishing E-Mail.<br /><br />
 				<b>-</b> Wo kann ich <b>Bugs oder Sicherheitsl&uuml;cken melden</b>? Antwort: Schreibe daf&uuml;r eine E-Mail an bugs@friend-web.de. Vorraussetzungen f&uuml;r eine Belohnung sind:<br />1. Der Fehler darf noch nicht gemeldet worden sein.<br />2. Nur Meldungen &uuml;ber diese E-Mail Adresse sind g&uuml;ltig.<br />3. Der Fehler darf, nach seiner Entdeckung, nicht weiter ausgenutzt und umgehend gemeldet werden.<br /><br />
 				
 				

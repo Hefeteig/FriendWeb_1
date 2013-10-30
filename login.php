@@ -30,13 +30,6 @@
 		$activated = mysqli_query($sql, $is_active);
 		$activated = mysqli_fetch_row($activated);
 		
-		/*
-		echo $db_saltedHash[0] . "<br />";
-		echo $dc_saltedHash . "<br />";
-		$test = saltPassword('', $salt);
-		echo $test . "<br />";
-		*/
-		
 		//Eventuellen Fehler definieren
 		if ($db_saltedHash[0] != $dc_saltedHash)
 		{

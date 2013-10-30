@@ -1,0 +1,26 @@
+
+	Startseite		Einstellungen		FAQ		Kontakt		Impressum		Ausloggen		Kontakte		Kontakte hinzufügen		Nachricht schreiben		News
+	
+	1. Ebene:
+		- Startseite
+		- Einstellungen
+		- Ausloggen
+		- Kontakte
+		- Nachrichten
+		- Nachricht schreiben
+		- News
+		
+		
+	2. Ebene
+		- FAQ
+		- Kontakt
+		- Impressum
+		- Kontakte hinzufügen
+
+
+
+Logo(Mit Link zur Startseite)			Startseite		Nachrichten(empfangene)			Kontakte(bestätigte)			Einstellungen			News			Sonstiges			Ausloggen(Nur Logo)
+									
+														Schreiben						hinzufügen						Plugins									FAQ
+																														Profil									Kontakt
+																																								Impressum
