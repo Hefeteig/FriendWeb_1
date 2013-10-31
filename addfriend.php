@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$userid = $_SESSION['userid'][0];
 	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
 	mysqli_select_db($sql, "friendweb");
 	
@@ -34,15 +35,28 @@
 		</div>
 	
 	<div id="friends">
-		<br />
 <?php
-	$select_friends = "SELECT `name` FROM `users` WHERE `friendid` = '".$fid[0]."' AND `userid` = '".$userid."' AND `confirmed` = 1";
-	$result = mysqli_query($sql, $search);
-	$result = mysqli_fetch_row($result);
-	$j = 0;
-	while($j < count();)
+	$select_friends = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
+	$friends = mysqli_query($sql, $select_friends);
+	for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
+	array_pop($array);
+	
+	foreach($array as $current_friendid)
 	{
-		
+		$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
+		$get_status = "SELECT `status` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
+		$current_friend = mysqli_query($sql, $get_user);
+		$current_friend = mysqli_fetch_row($current_friend);
+		$status = mysqli_query($sql, $get_status);
+		$status = mysqli_fetch_row($status);
+		if($status[0] == 1)
+		{
+			echo "<br /><div class='status_on'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+		}
+		else
+		{
+			echo "<br /><div class='status_off'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+		}
 	}
 ?>
 	</div>
@@ -79,7 +93,6 @@
 			//Kontaktanfrage senden
 			if(isset($_POST['friends_name']))
 			{
-				$userid = $_SESSION['userid'][0];
 				$name = $_POST['friends_name'];
 				$friends_id = "SELECT `userid` FROM `users` WHERE `name` = '".$name."'";
 				$fid = mysqli_query($sql, $friends_id);
@@ -95,6 +108,8 @@
 				$already_friends_2 = mysqli_query($sql, $friend_query_2);
 				$already_friends_2 = mysqli_fetch_row($already_friends_2);
 				
+				//Zu viele Freunde
+				
 				if($fid[0] == $userid)
 				{
 					//Freundschaft mit sich selber
@@ -108,8 +123,13 @@
 				elseif($already_friends_2)
 				{
 					//Anfrage schon gesendet aber nicht angenommen
-					echo "<div class='alert alert-block alert_message'>Du hast diesem Nutzer bereits eine Kontaktanfrage gesendet, die aber noch nicht bestätigt wurde. Lässt du dir dass gefallen?</div>";
+					echo "<div class='alert alert-block alert_message'>Du hast diesem Nutzer bereits eine Kontaktanfrage gesendet, die aber noch nicht bestätigt wurde. Lässt du dir das gefallen?</div>";
 				}
+				/*elseif($too_many_friends)
+				{
+					//Anfrage schon gesendet aber nicht angenommen
+					echo "<div class='alert alert-block alert_message'>Du hast schon 500 Kontakte, mehr geht leider nicht.</div>";
+				}*/
 				else
 				{
 					//Anfrage senden

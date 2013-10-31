@@ -1,4 +1,18 @@
 
+.status_on
+{
+	background-color: #0F0;
+	font-family: franklin gothic medium; 
+	font-size: 30px;
+}
+
+.status_off
+{
+	background-color: #F00;
+	font-family: franklin gothic medium; 
+	font-size: 30px;
+}
+
 .alert_message
 {
 	position: absolute;
@@ -85,7 +99,7 @@
 	left: 80%;
 	height: 88.5%;
 	width: 20%;
-	background-color: #FFF;
+	background-color: #AFABAB;
 	z-index: -1;
 	overflow: auto;
 	border: 3px solid black;
