@@ -52,7 +52,6 @@
 			$userid = mysqli_fetch_row($userid);
 			
 			$_SESSION["userid"] = $userid;
-			session_cache_limiter(240);
 			header("Location: index.php");
 		}
 		else

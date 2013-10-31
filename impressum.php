@@ -17,13 +17,12 @@
 		$template = $twig->loadTemplate('login-header.html');
 		$params = array();
 		$template->display($params);
-?>
+?>	
 	<div id="protokoll">
 		<br /><br /><br />
-		<div class="site_title">News</div><br /><br /><br />
-		<div class="news_article">
-			<b><i class="icon-ok"></i> 05.11.2013:</b><br /><br />
-			FriendWeb ist online.
+		<div class="site_title">Impressum</div><br /><br /><br />
+		<div class="login_causes">
+			Impressum
 		</div>
 	</div>
 	<div id="friends">
@@ -41,19 +40,12 @@
 		$params = array();
 		$template->display($params);
 ?>
-		<div class="main_field">
-			<br /><br /><br />
-			<div class="site_title">News</div><br /><br /><br />
-			<div class="news_article">
-				<b><i class="icon-ok"></i> 05.11.2013:</b><br /><br />
-				FriendWeb ist online.
-			</div>
+	<div class="main_field">
+		<div class="causes">
+			<div class="question">Impressum:</div><br /><br />
+			Impressum
 		</div>
+	</div>
 <?php
 	}
 ?>
-
-
-
-
-
