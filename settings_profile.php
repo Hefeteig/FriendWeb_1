@@ -21,15 +21,28 @@
 		$template = $twig->loadTemplate('login-header.html');
 		$params = array();
 		$template->display($params);
+		
+		//Profildaten auslesen
+		$get_name = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+		$get_email = "SELECT `email` FROM `users` WHERE `userid` = '".$userid."'";
+		$get_register_date = "SELECT `register_date` FROM `users` WHERE `userid` = '".$userid."'";
+		$name = mysqli_query($sql, $get_name);
+		$email = mysqli_query($sql, $get_email);
+		$register_date = mysqli_query($sql, $get_register_date);
+		$name = mysqli_fetch_row($name);
+		$email = mysqli_fetch_row($email);
+		$register_date = mysqli_fetch_row($register_date);
 ?>
 	<div id="protokoll">
-		<br /><br /><br />
-		<div class="site_title">News</div><br /><br /><br />
-		<div class="news_article">
-			<b><i class="icon-ok"></i> 05.11.2013:</b><br /><br />
-			FriendWeb ist online.
-		</div>
+		<br /><br /><br /><br />
+		<div class="site_title">Profileinstellungen</div><br /><br /><br /><br />
+			<div class="login_causes">
+				Name: <?php echo $name[0];?><br /><br /><br />
+				E-Mail: <?php echo $email[0];?><br /><br /><br />
+				Registrierungsdatum: <?php echo $register_date[0];?><br /><br /><br />
+			</div>
 	</div>
+	
 	<div id="friends">
 <?php
 		$select_friends = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
@@ -54,34 +67,13 @@
 				echo "<br /><div class='status_off'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
 			}
 		}
-		mysqli_close($sql);
 ?>
 	</div>
 <?php
+		mysqli_close($sql);
 	}
 	else
 	{
-		require_once 'lib/Twig/Autoloader.php';
-		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem('./');
-		$twig = new Twig_Environment($loader, array());
-		$template = $twig->loadTemplate('logout-header.html');
-		$params = array();
-		$template->display($params);
-?>
-		<div class="main_field">
-			<br /><br /><br />
-			<div class="site_title">News</div><br /><br /><br />
-			<div class="news_article">
-				<b><i class="icon-ok"></i> 05.11.2013:</b><br /><br />
-				FriendWeb ist online.
-			</div>
-		</div>
-<?php
+		header("Location: index.php");
 	}
 ?>
-
-
-
-
-

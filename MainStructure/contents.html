@@ -1,3 +1,12 @@
+<?php
+	session_start();
+	$userid = $_SESSION['userid'][0];
+	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
+	mysqli_select_db($sql, "friendweb");
+	$get_username = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+	$username = mysqli_query($sql, $get_username);
+	$username = mysqli_fetch_row($username);
+?>
 <div id="body;0" class="parent">
 	<div class="navbar navbar-inverse over">
 			<div class="navbar-inner">
@@ -24,8 +33,8 @@
 							    <div class="btn-group">
 									<button class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-envelope"></i> Nachrichten&nbsp;&nbsp;<span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										<li><a href="faq.php"><div class="menu_style">Verlauf</div></a></li>
-										<li><a href="faq.php"><div class="menu_style">Nachricht schreiben</div></a></li>
+										<li><a href="message_course.php"><div class="menu_style">Verlauf</div></a></li>
+										<li><a href="write_message.php"><div class="menu_style">Nachricht schreiben</div></a></li>
 									</ul>
 								</div>&nbsp;&nbsp;
 								
@@ -33,15 +42,15 @@
 									<button class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-user"></i> Kontakt&nbsp;&nbsp;<span class="caret"></span></button>
 									<ul class="dropdown-menu">
 										<li><a href="addfriend.php"><div class="menu_style">Hinzuf&uuml;gen</div></a></li>
-										<li><a href="confirmfriend.php"><div class="menu_style">Bestätigen</div></a></li>
+										<li><a href="confirmfriend.php"><div class="menu_style">Anfragen verwalten</div></a></li>
 									</ul>
 								</div>&nbsp;&nbsp;
 								
 								<div class="btn-group">
 									<button class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cog"></i> Einstellungen&nbsp;&nbsp;<span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										<li><a href="faq.php"><div class="menu_style">Plugins</div></a></li>
-										<li><a href="faq.php"><div class="menu_style">Profil</div></a></li>
+										<li><a href="settings_plugins.php"><div class="menu_style">Plugins</div></a></li>
+										<li><a href="settings_profile.php"><div class="menu_style">Profil</div></a></li>
 									</ul>
 								</div>&nbsp;&nbsp;
 								
@@ -63,9 +72,37 @@
 			</div>
 		</div>
 	<div id="protokoll">
-		<br />Protokoll
+		<br /><br /><br /><br />
+		<div class="site_title">Hallo <?php  echo $username[0]; ?></div><br /><br /><br /><br />
+			<div class="login_causes">
+				
+			</div>
 	</div>
 	<div id="friends">
-		<br />Kontakte
+<?php
+	$select_friends = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
+	$friends = mysqli_query($sql, $select_friends);
+	for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
+	array_pop($array);
+	
+	foreach($array as $current_friendid)
+	{
+		$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
+		$get_status = "SELECT `status` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
+		$current_friend = mysqli_query($sql, $get_user);
+		$current_friend = mysqli_fetch_row($current_friend);
+		$status = mysqli_query($sql, $get_status);
+		$status = mysqli_fetch_row($status);
+		if($status[0] == 1)
+		{
+			echo "<br /><div class='status_on'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+		}
+		else
+		{
+			echo "<br /><div class='status_off'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+		}
+	}
+	mysqli_close($sql);
+?>
 	</div>
 </div>

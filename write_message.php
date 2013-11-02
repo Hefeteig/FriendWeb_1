@@ -21,18 +21,14 @@
 		$template = $twig->loadTemplate('login-header.html');
 		$params = array();
 		$template->display($params);
-?>	
+?>
 	<div id="protokoll">
-		<br /><br /><br />
-		<div class="site_title">Kontakt</div><br /><br /><br />
-		<div class="login_causes">
-			Um Kontakt mit dem FriendWeb-Team aufzunehmen, schreibe bitte eine E-Mail an contact@friend-web.de.<br /><br />Bitte schildere dein Anliegen so genau wie m&ouml;glich, damit wir schnell und effektiv helfen k&ouml;nnen.
-			<br /><br />Eine Antwort erfolgt normalerweise nach 2-3 Werktagen.
+		<br /><br /><br /><br />
+		<div class="site_title">Nachrichten schreiben</div><br /><br /><br /><br />
+			
 		</div>
-	</div>
 	<div id="friends">
 <?php
-	
 	$select_friends = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
 	$friends = mysqli_query($sql, $select_friends);
 	for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
@@ -55,28 +51,13 @@
 			echo "<br /><div class='status_off'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
 		}
 	}
-	mysqli_close($sql);
 ?>
 	</div>
 <?php
+		mysqli_close($sql);
 	}
 	else
 	{
-		require_once 'lib/Twig/Autoloader.php';
-		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem('./');
-		$twig = new Twig_Environment($loader, array());
-		$template = $twig->loadTemplate('logout-header.html');
-		$params = array();
-		$template->display($params);
-?>
-	<div class="main_field">
-		<div class="causes">
-			<div class="question">Kontakt:</div><br /><br />
-			Um Kontakt mit dem FriendWeb-Team aufzunehmen, schreibe bitte eine E-Mail an contact@friend-web.de.<br /><br />Bitte schildere dein Anliegen so genau wie m&ouml;glich, damit wir schnell und effektiv helfen k&ouml;nnen.
-			<br /><br />Eine Antwort erfolgt normalerweise nach 2-3 Werktagen.
-		</div>
-	</div>
-<?php
+		header("Location: index.php");
 	}
 ?>
