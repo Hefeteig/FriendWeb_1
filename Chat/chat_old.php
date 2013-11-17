@@ -1,3 +1,7 @@
+
+
+
+
 <div id="content">
 
 
@@ -9,14 +13,6 @@
 	</form>
 </div>
 
-<div id="logindiv">
-	<form id="form" action="javascript:login()">
-		<input type="text" id="name" />
-		<input type="submit" value="Login" />
-	</form>
-</div>
-
-<script type="text/javascript" src="lib/jquery.js"></script>
 
 <script type="text/javascript">
 	function AjaxRequest(_file, _readyFunction, _parameters)

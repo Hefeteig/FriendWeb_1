@@ -25,10 +25,9 @@
 	<div id="protokoll">
 		<br /><br /><br /><br />
 		<div class="site_title">Kontakt hinzufügen</div><br /><br /><br /><br />
-		
 			<div class="center">
 				<form name="search" action="addfriend.php" method="post">
-					<input type="text" size="40" maxlength="50" name="searched_friend">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" size="40" maxlength="50" name="searched_friend" autofocus/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<button type="submit" class="btn btn-large btn-primary">Suchen</button>
 				</form>
 			</div>
@@ -51,11 +50,11 @@
 			$status = mysqli_fetch_row($status);
 			if($status[0] == 1)
 			{
-				echo "<br /><div class='status_on'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+				echo "<br /><div class='status_on round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
 			}
 			else
 			{
-				echo "<br /><div class='status_off'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+				echo "<br /><div class='status_off round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
 			}
 		}
 ?>
@@ -81,7 +80,7 @@
 					$i = 0;
 					while($i < count($result))
 					{
-					   echo "<div class='search_result'><form name='addfriend' action='addfriend.php' method='post'><input type='text' name='friends_name' class='hidden' value='".$result[$i]."'>" .$result[$i]. "&nbsp;&nbsp;&nbsp;<button type='submit' class='btn btn-primary'><i class='icon-plus'></i> Kontaktanfrage senden</button></form></div><br /><br />";
+					   echo "<div class='search_result'><form name='addfriend' action='addfriend.php' method='post'><input type='hidden' name='friends_name' value='".$result[$i]."'>" .$result[$i]. "&nbsp;&nbsp;&nbsp;<button type='submit' class='btn btn-primary'><i class='icon-plus'></i> Kontaktanfrage senden</button></form></div><br /><br />";
 					   $i++;
 					}
 				}
@@ -94,6 +93,11 @@
 			if(isset($_POST['friends_name']))
 			{
 				$name = $_POST['friends_name'];
+				//Filterung da das versteckte input-feld mit firebug manipuliert werden kann (Im Falle eines ungültigen Eintrages wird in die Tabelle `friends` als `friendid` "0" (und auch als `userid`)eingetragen)
+				$name = trim($name);
+				$name = strip_tags($name);
+				$name = mysqli_real_escape_string($sql, $name);
+				
 				$friends_id = "SELECT `userid` FROM `users` WHERE `name` = '".$name."'";
 				$fid = mysqli_query($sql, $friends_id);
 				$fid = mysqli_fetch_row($fid);
@@ -116,6 +120,11 @@
 				array_pop($array);
 				$number = count($array);
 				
+				//Aktiviert?
+				$is_active = "SELECT `active` FROM `users` WHERE `userid` = '".$fid[0]."'";
+				$active = mysqli_query($sql, $is_active);
+				$active = mysqli_fetch_row($active);
+				
 				if($fid[0] == $userid)
 				{
 					//Freundschaft mit sich selber
@@ -135,6 +144,16 @@
 				{
 					//Zu viele Freunde
 					echo "<div class='alert alert-block alert_message'>Du hast schon 500 Kontakte, mehr geht leider nicht.</div>";
+				}
+				elseif($fid[0] == 0)
+				{
+					//Manipuliertes input-feld
+					echo "<div class='alert alert-block alert_message'>Es gibt keinen Nutzer der &quot;".$name."&quot; heißt. Wenn du die Formulare nicht manipuliert hast, <a href='contact.php'>kontaktiere</a> bitte den Administrator.</div>";
+				}
+				elseif($active[0] == '0')
+				{
+					//Kontakt hat Account noch nicht aktiviert
+					echo "<div class='alert alert-block alert_message'>Der ausgewählte Nutzer hat seinen Account noch nicht bestätigt, du kannst ihm erst eine Kontaktanfrage schicken wenn der Account aktiviert wurde.</div>";
 				}
 				else
 				{

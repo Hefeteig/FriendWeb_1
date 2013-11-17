@@ -1,4 +1,11 @@
 
+todo:
+- Nachrichtenverlauf (max. 10 chats (while) alert wenn über 10)
+- JQuery in lib Ordner
+- Nachrichten mit SC Verschlüsselung sichern
+
+
+
 	Startseite		Einstellungen		FAQ		Kontakt		Impressum		Ausloggen		Kontakte		Kontakte hinzufügen		Nachricht schreiben		News
 	
 	1. Ebene:

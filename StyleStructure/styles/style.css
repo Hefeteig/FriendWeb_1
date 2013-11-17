@@ -1,4 +1,47 @@
 
+.chat_content
+{
+	position: relative;
+	left: 0%;
+	font-size: 16px;
+	
+}
+
+.chat_header
+{
+	text-align: center;
+	color: black;
+	background-color: #4169E1;
+	font-family: franklin gothic medium; 
+	font-size: 30px;
+	overflow: auto;
+}
+
+.chat_all
+{
+	position: relative;
+	width: 40%;
+	height: 30%;
+	left: 32%;
+	top: 0%;
+	border: 3px solid black;
+	overflow: auto;
+	background-color: #AFABAB;
+}
+
+.round_corners
+{
+	border-radius: 15px;
+}
+
+.write_messages
+{
+	font-family: franklin gothic medium; 
+	font-size: 20px;
+	position: absolute;
+	left: 30%;
+}
+
 .status_on
 {
 	background-color: #33CC33;
@@ -19,11 +62,6 @@
 	top: 12%;
 	left: 1%;
 	width: 75%;
-}
-
-.hidden
-{
-	visibility: hidden;
 }
 
 .search_result
@@ -88,8 +126,8 @@
 
 #body
 {
-	overflow:auto;
-	background-color:#00F;
+	overflow: auto;
+	background-color: #00F;
 }
 
 #friends
