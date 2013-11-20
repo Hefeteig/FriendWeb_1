@@ -37,7 +37,7 @@
 		array_pop($array);
 		if($array == array())
 		{
-			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Freunde.";
+			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Kontakte.";
 		}
 		foreach($array as $current_friendid)
 		{

@@ -14,7 +14,6 @@
 {
 	text-align: center;
 	color: black;
-	background-color: #4169E1;
 	font-family: franklin gothic medium; 
 	font-size: 30px;
 	overflow: auto;
@@ -24,7 +23,7 @@
 {
 	position: relative;
 	width: 40%;
-	height: 30%;
+	height: 50%;
 	left: 32%;
 	top: 0%;
 	border: 3px solid black;

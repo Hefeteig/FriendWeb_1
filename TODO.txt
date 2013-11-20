@@ -5,4 +5,6 @@ Freundessuche vorschläge anzeigen
 Chat-Nachrichtenblöcke neueste oben
 content.html in content.php umbenennen
 vor dem upload jQuery compressed version nehmen
+styles.css ungenutzte elemente entfernen
+mysql verbindung und freundesliste in externe datei
 Plugin: Datei upload

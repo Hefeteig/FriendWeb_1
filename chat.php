@@ -188,30 +188,69 @@
 		
 		foreach($sorted_chat as $message)
 		{
-			echo "<div class='chat_all'><div class='chat_header'>";
-			//Name des Chatpartners
 			$fid =  array_keys($sorted_chat, $message)[0];
 			$fname = str_replace(".", "", $fid);
 			$fname = $user_array[$fname];
-			echo "<br />" . $fname . "<br /><br />";
-			echo "</div><div class='chat_content'><br />";
-			//Chatcontent
-			$message = array_reverse($message, TRUE);
-			foreach($message as $cm)
+			$is_online = "SELECT `status` FROM `users` WHERE `name` = '".$fname."'";
+			$online = mysqli_query($sql, $is_online);
+			$online = mysqli_fetch_row($online);
+			if($online[0] == 1)
 			{
-				$name = $cm['from_id'];
-				$name = $user_array[$name];
-				echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . " ): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
+				echo "<div class='chat_all'><div class='chat_header'>";
+				//Name des Chatpartners
+				echo "<div class='status_on'><br />" . $fname . "<br /><br /></div>";
+				echo "</div><div class='chat_content'><br />";
+				//Chatcontent
+				$message = array_reverse($message, TRUE);
+				foreach($message as $cm)
+				{
+					$name = $cm['from_id'];
+					$name = $user_array[$name];
+					echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . " ): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
+				}
+				echo "</div></div>";
+				//Input Feld
+				echo "
+					<form name='answer_form' action='chat.php' method='post' class='answer_form'>
+						<input type='text' name='message' size='40' maxlength='999' />
+						<input type='hidden' name='receiver' value='".$fname."' />
+					</form>
+				";
+				echo "<br /><br /><br /><br />";
 			}
-			echo "</div></div>";
-			//Input Feld
-			echo "
-				<form name='answer_form' action='chat.php' method='post' class='answer_form'>
-					<input type='text' name='message' size='40' maxlength='999' />
-					<input type='hidden' name='receiver' value='".$fname."' />
-				</form>
-			";
-			echo "<br /><br /><br /><br />";
+		}
+		foreach($sorted_chat as $message)
+		{
+			$fid =  array_keys($sorted_chat, $message)[0];
+			$fname = str_replace(".", "", $fid);
+			$fname = $user_array[$fname];
+			$is_online = "SELECT `status` FROM `users` WHERE `name` = '".$fname."'";
+			$online = mysqli_query($sql, $is_online);
+			$online = mysqli_fetch_row($online);
+			if($online[0] == 0)
+			{
+				echo "<div class='chat_all'><div class='chat_header'>";
+				//Name des Chatpartners
+				echo "<div class='status_off'><br />" . $fname . "<br /><br /></div>";
+				echo "</div><div class='chat_content'><br />";
+				//Chatcontent
+				$message = array_reverse($message, TRUE);
+				foreach($message as $cm)
+				{
+					$name = $cm['from_id'];
+					$name = $user_array[$name];
+					echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . " ): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
+				}
+				echo "</div></div>";
+				//Input Feld
+				echo "
+					<form name='answer_form' action='chat.php' method='post' class='answer_form'>
+						<input type='text' name='message' size='40' maxlength='999' />
+						<input type='hidden' name='receiver' value='".$fname."' />
+					</form>
+				";
+				echo "<br /><br /><br /><br />";
+			}
 		}
 ?>
 		</div>
@@ -223,23 +262,29 @@
 		array_pop($array);
 		if($array == array())
 		{
-			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Freunde.";
+			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Kontakte.";
 		}
+		
+		$fname_array = array();
 		foreach($array as $current_friendid)
 		{
-			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
-			$get_status = "SELECT `status` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
+			$get_user = "SELECT `name`, `status` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
 			$current_friend = mysqli_query($sql, $get_user);
-			$current_friend = mysqli_fetch_row($current_friend);
-			$status = mysqli_query($sql, $get_status);
-			$status = mysqli_fetch_row($status);
-			if($status[0] == 1)
+			$current_friend = mysqli_fetch_array($current_friend);
+			array_push($fname_array, $current_friend);
+		}
+		foreach($fname_array as $cf)
+		{
+			if($cf[1] == 1)
 			{
-				echo "<br /><div class='status_on round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+				echo "<br /><div class='status_on round_corners'><br />&nbsp;&nbsp;&nbsp;".$cf[0]."<br /><br /></div>";
 			}
-			else
+		}
+		foreach($fname_array as $cf)
+		{
+			if($cf[1] == 0)
 			{
-				echo "<br /><div class='status_off round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
+				echo "<br /><div class='status_off round_corners'><br />&nbsp;&nbsp;&nbsp;".$cf[0]."<br /><br /></div>";
 			}
 		}
 ?>
