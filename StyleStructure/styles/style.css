@@ -1,10 +1,13 @@
 
+.answer_form
+{
+	position: absolute;
+	left: 32%;
+}
+
 .chat_content
 {
-	position: relative;
-	left: 0%;
 	font-size: 16px;
-	
 }
 
 .chat_header
@@ -134,8 +137,8 @@
 {
 	position: absolute;
 	top: 10.5%;
-	left: 80%;
-	height: 88.5%;
+	left: 79.7%;
+	height: 88.9%;
 	width: 20%;
 	background-color: #AFABAB;
 	z-index: -1;
@@ -159,8 +162,8 @@
 	position: absolute;
 	top: 10.5%;
 	left: 0%;
-	width: 80%;
-	height: 88.5%;
+	width: 79.7%;
+	height: 88.9%;
 	background-color: #808080;
 	overflow: auto;
 	border: 3px solid black;

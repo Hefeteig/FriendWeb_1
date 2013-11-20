@@ -31,13 +31,14 @@
 		$activated = mysqli_fetch_row($activated);
 		
 		//Eventuellen Fehler definieren
-		if ($db_saltedHash[0] != $dc_saltedHash)
-		{
-			$error = "Login nicht erfolgreich. Du hast entweder einen falschen Benutzernamen oder ein falsches Passwort eingegeben. <a href='forgot.php'>Passwort vergessen?</a><br/>";
-		}
-		elseif ($activated[0] != 1)
+		
+		if ($activated[0] != 1)
 		{
 			$error = "Dein Account wurde nocht nicht bestätigt.";
+		}
+		elseif ($db_saltedHash[0] != $dc_saltedHash)
+		{
+			$error = "Login nicht erfolgreich. Du hast entweder einen falschen Benutzernamen oder ein falsches Passwort eingegeben. <a href='forgot.php'>Passwort vergessen?</a><br/>";
 		}
 		else
 		{

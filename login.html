@@ -47,15 +47,15 @@
 				</div>
 			</div>
 		</div>
-			{{ if_failed | raw }}
-		<noscript>
-			<div class="alert">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong>Achtung!</strong> Ohne JavaScript kannst du einige Funktionen dieser Seite nicht benutzen.
-			</div>
-		</noscript>
 		
 		<div class="main_field">
+			{{ if_failed | raw }}
+			<noscript>
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Achtung!</strong> Ohne JavaScript kannst du einige Funktionen dieser Seite nicht benutzen.
+				</div>
+			</noscript>
 			<div class="causes">
 				<div class="question">Was ist FriendWeb?</div><br /><br />
 				FriendWeb ist ein soziales Netzwek, welches dir schnelle, sichere und anonyme Kommunikation ermöglicht.<br /><br /><br /><br />

@@ -26,6 +26,98 @@
 		<br /><br /><br /><br />
 		<div class="site_title">Nachrichtenverlauf</div><br /><br /><br /><br />
 <?php
+		//Nachricht gesendet
+		if(isset($_POST['receiver']) && $_POST['message'] == '')
+		{
+			echo "<div class='alert alert-block alert_message'>Bitte gib eine Nachricht ein.</div>";
+		}
+		elseif(isset($_POST['message']) && $_POST['receiver'] == '')
+		{
+			echo "<div class='alert alert-block alert_message'>Es konnte kein Empfänger festgestellt werden. Falls du nicht die Formulare manipuliert hast <a href='contact.php'>kontaktiere</a> bitte den Administrator.</div>";
+		}
+		if(isset($_POST['receiver']) && isset($_POST['message']))
+		{
+			//Eingaben filtern
+			$receiver = $_POST['receiver'];
+			$message = $_POST['message'];
+			$receiver = trim($receiver);
+			$receiver = strip_tags($receiver);
+			$receiver = mysqli_real_escape_string($sql, $receiver);
+			$message = strip_tags($message);
+			$message = mysqli_real_escape_string($sql, $message);
+			
+			//Empfänger ID ermitteln
+			$get_fid = "SELECT `userid` FROM `users` WHERE `name` = '".$receiver."'";
+			$fid = mysqli_query($sql, $get_fid);
+			$fid = mysqli_fetch_row($fid);
+			
+			//Empfängeraccount bestätigt?
+			$is_active = "SELECT `active` FROM `users` WHERE `userid` = '".$fid[0]."'";
+			$active = mysqli_query($sql, $is_active);
+			$active = mysqli_fetch_row($active); 
+			
+			//Empfänger in Kontaktliste?
+			$is_friend = "SELECT `confirmed` FROM `friends` WHERE `userid` = '".$userid."' AND `friendid` = '".$fid[0]."'";
+			$friend = mysqli_query($sql, $is_friend);
+			$friend = mysqli_fetch_row($friend);
+			
+			if($active[0] == '0')
+			{
+				//Kontakt hat Account noch nicht aktiviert
+				echo "<div class='alert alert-block alert_message'>Der ausgewählte Nutzer hat seinen Account noch nicht bestätigt, du kannst ihm erst eine Nachricht schicken wenn der Account aktiviert wurde.</div>";
+			}
+			elseif($fid[0] == 0)
+			{
+				//Empfänger nicht vorhanden
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil es ihn nicht gibt.</div>";
+			}
+			elseif($fid[0] == $userid)
+			{
+				//Nachricht an sich selber
+				echo "<div class='alert alert-block alert_message'>Bist du schon so verzweifelt, dass du mit dir selber chatten willst?</div>";
+			}
+			elseif($friend[0] == 0)
+			{
+				//Empfänger nicht in Kontaktliste aber Anfrage gesendet
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er deine Kontaktanfrage noch nicht bestätigt hat.</div>";
+			}
+			elseif($friend[0] == 1)
+			{
+				//Senden
+				//Username bestimmen
+				$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+				$user = mysqli_query($sql, $get_user);
+				
+				//Verschlüsseln
+				
+				//Seed errechnen
+				$seed = $userid + 284917;
+				
+				function encodeRand($str, $seed)
+				{
+					mt_srand($seed);
+					$out = array();
+					for ($x=0, $l=strlen($str); $x<$l; $x++)
+					{
+						$out[$x] = (ord($str[$x]) * 3) + mt_rand(350, 16000);
+					}
+					mt_srand();
+					return implode('-', $out);
+				}
+				$cryptedMessage = encodeRand($message, $seed);
+				
+				$insert_message = "INSERT INTO `messages` (`from_id`, `to_id`, `content`) VALUES ('".$userid."', '".$fid[0]."', '".$cryptedMessage."')";
+				mysqli_query($sql, $insert_message);
+			}
+			else
+			{
+				//Unbekannter Fehler
+				echo "<div class='alert alert-block alert_message'>Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.</div>";
+			}
+		}
+		
+		
+		//Nachrichten abrufen
 		function decodeRand($str, $seed)
 		{
 			mt_srand($seed);
@@ -82,6 +174,7 @@
 				$sorted_chat[$id . "."] = array($current);
 			}
 		}
+		$sorted_chat = array_reverse($sorted_chat, TRUE);
 		
 		$get_users = "SELECT `name`, `userid` FROM `users`";
 		$users = mysqli_query($sql, $get_users);
@@ -103,16 +196,22 @@
 			echo "<br />" . $fname . "<br /><br />";
 			echo "</div><div class='chat_content'><br />";
 			//Chatcontent
+			$message = array_reverse($message, TRUE);
 			foreach($message as $cm)
 			{
 				$name = $cm['from_id'];
 				$name = $user_array[$name];
 				echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . " ): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
 			}
-			echo "</div>";
+			echo "</div></div>";
 			//Input Feld
-			echo "";
-			echo "</div><br /><br /><br /><br />";
+			echo "
+				<form name='answer_form' action='chat.php' method='post' class='answer_form'>
+					<input type='text' name='message' size='40' maxlength='999' />
+					<input type='hidden' name='receiver' value='".$fname."' />
+				</form>
+			";
+			echo "<br /><br /><br /><br />";
 		}
 ?>
 		</div>
@@ -122,7 +221,10 @@
 		$friends = mysqli_query($sql, $select_friends);
 		for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
 		array_pop($array);
-		
+		if($array == array())
+		{
+			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Freunde.";
+		}
 		foreach($array as $current_friendid)
 		{
 			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";

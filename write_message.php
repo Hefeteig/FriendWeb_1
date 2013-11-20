@@ -41,7 +41,10 @@
 		$friends = mysqli_query($sql, $select_friends);
 		for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
 		array_pop($array);
-		
+		if($array == array())
+		{
+			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Freunde.";
+		}
 		foreach($array as $current_friendid)
 		{
 			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
@@ -68,7 +71,7 @@
 		}
 		elseif(isset($_POST['message']) && $_POST['receiver'] == '')
 		{
-			echo "<div class='alert alert-block alert_message'>Bitte gib eine Nachricht ein.</div>";
+			echo "<div class='alert alert-block alert_message'>Bitte gib einen Empfänger an.</div>";
 		}
 		if(isset($_POST['receiver']) && isset($_POST['message']))
 		{
@@ -104,7 +107,7 @@
 			elseif($fid[0] == 0)
 			{
 				//Empfänger nicht vorhanden
-				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er nicht in deiner Kontaktliste ist oder weil es ihn nicht gibt.</div>";
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil es ihn nicht gibt.</div>";
 			}
 			elseif($fid[0] == $userid)
 			{
@@ -114,7 +117,7 @@
 			elseif($friend[0] == 0)
 			{
 				//Empfänger nicht in Kontaktliste aber Anfrage gesendet
-				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er deine Kontaktanfrage noch nicht bestätigt hat.</div>";
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er deine Kontaktanfrage noch nicht bestätigt hat oder du ihm noch keine gesendet hast.</div>";
 			}
 			elseif($friend[0] == 1)
 			{
@@ -143,7 +146,7 @@
 				
 				$insert_message = "INSERT INTO `messages` (`from_id`, `to_id`, `content`) VALUES ('".$userid."', '".$fid[0]."', '".$cryptedMessage."')";
 				mysqli_query($sql, $insert_message);
-				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='message_course.php'>Nachrichtenverlauf</a> verschoben.</div>";
+				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='chat.php'>Nachrichtenverlauf</a> verschoben.</div>";
 			}
 			else
 			{

@@ -35,7 +35,10 @@
 		$friends = mysqli_query($sql, $select_friends);
 		for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
 		array_pop($array);
-		
+		if($array == array())
+		{
+			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Freunde.";
+		}
 		foreach($array as $current_friendid)
 		{
 			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";

@@ -1,0 +1,8 @@
+onlinestatus und chat updaten
+nachrichten senden ohne neu zu laden
+löschen von allen nachrichten durch button
+Freundessuche vorschläge anzeigen
+Chat-Nachrichtenblöcke neueste oben
+content.html in content.php umbenennen
+vor dem upload jQuery compressed version nehmen
+Plugin: Datei upload
