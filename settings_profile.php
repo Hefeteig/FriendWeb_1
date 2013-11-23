@@ -148,12 +148,12 @@
 		</div>
 	</div>
 	
-	<div id="friends" onload="test()"></div>
+	<div id="friends" onload="friendrequest('friends.php')">
 <?php
 	//require 'friends.php';
 	//mysqli_close($sql);
 ?>
-	
+	</div>
 <?php
 		mysqli_close($sql);
 	}

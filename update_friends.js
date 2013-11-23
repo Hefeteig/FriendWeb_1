@@ -1,3 +1,4 @@
+
 function AjaxRequest(_file, _readyFunction, _parameters)
 {
 	var file = _file;
@@ -24,7 +25,7 @@ function AjaxRequest(_file, _readyFunction, _parameters)
 			}
 			else if(xmlhttp.status==404)
 			{
-				alert("Request failed. Page not found\nStopped at readyState: " + xmlhttp.readyState);
+				alert("Es ist eine Fehler beim laden deiner Kontaktliste entstanden, bitte teile folgenden Text dem Administrator mit:\n Page not found Stopped at readyState: " + xmlhttp.readyState);
 			}
 		}
 		xmlhttp.open("POST",file,true);
@@ -44,42 +45,44 @@ function AjaxRequest(_file, _readyFunction, _parameters)
 	}
 }
 
-function Parameter(_name, _value)
-{
-	this.name = _name;
-	this.value = _value;
-}
 
-$("#content").hide();
-$("#formdiv").hide();
-function login ()
+function friendrequest(_file)
 {
-	var request = new AjaxRequest("login.php" , changeToChat, new Array(new Parameter("name", document.getElementById("name").value)));
+	var request = new AjaxRequest(_file, function(request){
+		alert(request.responseText);
+	}, []);
 	request.send();
+	//window.setTimeout(friendrequest, 10000);
 }
-function changeToChat (request)
+/*
+function AjaxRequest()
 {
-	$("#logindiv").hide();
-	$("#content").show();
-	$("#formdiv").show();
-	alert("Eingeloggt als " + request.responseText);
-	chatrequest();
-}
-
-function chatrequest()
-{
-	var request = new AjaxRequest("getchat.php" , updateContent, new Array());
-	request.send();
 	
-	window.setTimeout(chatrequest, 2000);
-}
-function updateContent(request)
-{
-	$("#content").html(request.responseText);
-}
-
-function send()
-{
-	var request = new AjaxRequest("insertchat.php" , updateContent, new Array(new Parameter("content", document.getElementById("input").value)));
-	request.send();
-}
+	
+	this.send = function()
+	{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				 document.getElementById("friends").innerHTML=xmlhttp.responseText;
+			}
+			else if(xmlhttp.status==404)
+			{
+				alert("Es ist eine Fehler beim laden deiner Kontaktliste entstanden, bitte teile folgenden Text dem Administrator mit:\n Page not found, stopped at readyState: " + xmlhttp.readyState);
+			}
+		}
+		xmlhttp.open("GET", "friends.php?id=5", true);
+		xmlhttp.send();
+	}
+}*/
