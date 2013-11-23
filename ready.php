@@ -21,7 +21,6 @@
 	$email_exist = mysqli_fetch_row($email_exist);
 	if (empty ($_POST['Mail']) == 1 or empty ($_POST['Name']) == 1 or empty ($_POST['Passwort_1']) == 1 or empty ($_POST['Passwort_2']) == 1 or $_POST['Passwort_1'] != $_POST['Passwort_2'] or filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE
 		or preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2'])
-		or preg_match("((drop)|(delete)|(table)|(--)|(;))", $_POST['Name'] . $_POST['Mail']. $_POST['Passwort_1'] . $_POST['Passwort_2'])
 		or $user_exist[0] or $email_exist[0])
 	{
 		//Fehler definieren
@@ -41,17 +40,13 @@
 		{
 			$error = "Fehlerhafte Ausdrücke eingegeben";
 		}
-		elseif($user_exist[0])
+		elseif($user_exist)
 		{
 			$error = "Nutzername schon vergeben";
 		}
-		elseif($email_exist[0])
+		elseif($email_exist)
 		{
 			$error = "E-Mail existiert bereits";
-		}
-		elseif(preg_match("((drop)|(delete)|(table)|(--)|(;))", $_POST['Name'] . $_POST['Mail']. $_POST['Passwort_1'] . $_POST['Passwort_2']))
-		{
-			$error = "<img src='pics/injection.png' alt='injection.png'<br /><br /><b>Inject the whole SQL-query...</b>";
 		}
 		else
 		{

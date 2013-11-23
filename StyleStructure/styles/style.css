@@ -1,4 +1,13 @@
 
+.offene_anfragen
+{
+	font-family: franklin gothic medium; 
+	font-size: 20px;
+	position: absolute;
+	top: 30%;
+	left: 5%;
+}
+
 .answer_form
 {
 	position: absolute;

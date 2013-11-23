@@ -10,6 +10,45 @@
 		<script type="text/javascript" src="js/plugin.js"></script>
 		<script type="text/javascript" src="update_friends.js"></script>
 		<link rel="stylesheet" href="StyleStructure/styles/style.css" type="text/css" media="all" />
+		<script type="text/javascript">
+			function friendrequest()
+			{
+				var request = new AjaxRequest();
+				request.send();
+				window.setTimeout(friendrequest, 10000);
+			}
+			
+			function test()
+			{
+					alert("hallo");
+					var xmlhttp;
+					if (window.XMLHttpRequest)
+					{
+						//Für IE7+ und alle anderen
+						xmlhttp=new XMLHttpRequest();
+					}
+					else
+					{
+						//Für IE5 und IE6
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+					
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+							 document.getElementById("friends").innerHTML=xmlhttp.responseText;
+						}
+						else if(xmlhttp.status==404)
+						{
+							alert("Es ist eine Fehler beim laden deiner Kontaktliste entstanden, bitte teile folgenden Text dem Administrator mit:\n Page not found, stopped at readyState: " + xmlhttp.readyState);
+						}
+					}
+					xmlhttp.open("GET", "friends.php", true);
+					xmlhttp.send();
+				}
+			}
+		</script>
 	</head>
 	<body onload="init()">
 	</body>

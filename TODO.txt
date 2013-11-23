@@ -1,3 +1,4 @@
+email ändern erstellen
 onlinestatus und chat updaten
 nachrichten senden ohne neu zu laden
 löschen von allen nachrichten durch button

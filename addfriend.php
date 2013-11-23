@@ -35,31 +35,7 @@
 	
 	<div id="friends">
 <?php
-		$select_friends = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
-		$friends = mysqli_query($sql, $select_friends);
-		for($j = 0; $array[$j] = mysqli_fetch_assoc($friends); $j++);
-		array_pop($array);
-		if($array == array())
-		{
-			echo "<br /><br />&nbsp;&nbsp;&nbsp;Du hast noch keine Kontakte.";
-		}
-		foreach($array as $current_friendid)
-		{
-			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
-			$get_status = "SELECT `status` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
-			$current_friend = mysqli_query($sql, $get_user);
-			$current_friend = mysqli_fetch_row($current_friend);
-			$status = mysqli_query($sql, $get_status);
-			$status = mysqli_fetch_row($status);
-			if($status[0] == 1)
-			{
-				echo "<br /><div class='status_on round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
-			}
-			else
-			{
-				echo "<br /><div class='status_off round_corners'><br />&nbsp;&nbsp;&nbsp;".$current_friend[0]."<br /><br /></div>";
-			}
-		}
+		require 'friends.php';
 ?>
 	</div>
 <?php
