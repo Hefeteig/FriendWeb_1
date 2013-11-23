@@ -1,3 +1,5 @@
+<body onload="init()">
+
 email ändern erstellen
 onlinestatus und chat updaten
 nachrichten senden ohne neu zu laden

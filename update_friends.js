@@ -46,13 +46,11 @@ function AjaxRequest(_file, _readyFunction, _parameters)
 }
 
 
-function friendrequest(_file)
+function friendrequest()
 {
-	var request = new AjaxRequest(_file, function(request){
-		alert(request.responseText);
-	}, []);
+	var request = new AjaxRequest("friends.php", function(request){document.getElementById("friends").innerHTML=request.responseText;}, []);
 	request.send();
-	//window.setTimeout(friendrequest, 10000);
+	window.setTimeout(friendrequest, 10000);
 }
 /*
 function AjaxRequest()

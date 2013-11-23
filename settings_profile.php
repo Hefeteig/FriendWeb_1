@@ -148,7 +148,7 @@
 		</div>
 	</div>
 	
-	<div id="friends" onload="friendrequest('friends.php')">
+	<div id="friends">
 <?php
 	//require 'friends.php';
 	//mysqli_close($sql);

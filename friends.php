@@ -1,9 +1,6 @@
 <?php
-	echo "<br><br>Hallo";
-	//$userid = $_GET['id'];
-	/*
-	$userid = '5';
-	echo "<br><br>Hallo";
+	session_start();
+	$userid = $_SESSION['userid'][0];
 	
 	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
 	mysqli_select_db($sql, "friendweb");
@@ -38,5 +35,4 @@
 			echo "<br /><div class='status_off round_corners'><br />&nbsp;&nbsp;&nbsp;".$cf[0]."<br /><br /></div>";
 		}
 	}
-	*/
 ?>
