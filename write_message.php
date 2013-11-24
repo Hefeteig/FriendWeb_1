@@ -36,9 +36,6 @@
 			</div>
 	</div>
 	<div id="friends">
-<?php
-		require 'friends.php';
-?>
 	</div>
 <?php
 		if(isset($_POST['receiver']) && $_POST['message'] == '')

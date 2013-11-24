@@ -31,12 +31,9 @@
 		</div>
 	</div>
 	<div id="friends">
-<?php
-	require 'friends.php';
-	mysqli_close($sql);
-?>
 	</div>
 <?php
+		mysqli_close($sql);
 	}
 	else
 	{

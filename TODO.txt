@@ -1,7 +1,6 @@
-<body onload="init()">
+<body onload="init()"> und index.php l 37
 
 email ändern erstellen
-onlinestatus und chat updaten
 nachrichten senden ohne neu zu laden
 löschen von allen nachrichten durch button
 Freundessuche vorschläge anzeigen
@@ -9,5 +8,5 @@ Chat-Nachrichtenblöcke neueste oben
 content.html in content.php umbenennen
 vor dem upload jQuery compressed version nehmen
 styles.css ungenutzte elemente entfernen
-mysql verbindung und freundesliste in externe datei
+mysql verbindung in externe datei
 Plugin: Datei upload

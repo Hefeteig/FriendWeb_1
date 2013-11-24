@@ -34,9 +34,6 @@
 	</div>
 	
 	<div id="friends">
-<?php
-		require 'friends.php';
-?>
 	</div>
 <?php
 		if(isset($_POST['searched_friend']) || isset($_POST['friends_name']))

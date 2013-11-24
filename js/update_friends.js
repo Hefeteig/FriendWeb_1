@@ -52,35 +52,10 @@ function friendrequest()
 	request.send();
 	window.setTimeout(friendrequest, 10000);
 }
-/*
-function AjaxRequest()
+
+function chatrequest()
 {
-	
-	
-	this.send = function()
-	{
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		{
-			xmlhttp=new XMLHttpRequest();
-		}
-		else
-		{
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		
-		xmlhttp.onreadystatechange=function()
-		{
-			if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-				 document.getElementById("friends").innerHTML=xmlhttp.responseText;
-			}
-			else if(xmlhttp.status==404)
-			{
-				alert("Es ist eine Fehler beim laden deiner Kontaktliste entstanden, bitte teile folgenden Text dem Administrator mit:\n Page not found, stopped at readyState: " + xmlhttp.readyState);
-			}
-		}
-		xmlhttp.open("GET", "friends.php?id=5", true);
-		xmlhttp.send();
-	}
-}*/
+	var request = new AjaxRequest("update_chat.php", function(request){document.getElementById("chat_content").innerHTML=request.responseText;}, []);
+	request.send();
+	window.setTimeout(chatrequest, 10000);
+}
