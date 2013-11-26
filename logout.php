@@ -7,7 +7,8 @@
 			$params["domain"], $params["secure"], $params["httponly"]
 		);
 	}
-
+	session_unset();
+	
 	require_once 'lib/Twig/Autoloader.php';
 	Twig_Autoloader::register();
 	$loader = new Twig_Loader_Filesystem('./');

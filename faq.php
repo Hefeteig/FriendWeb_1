@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -27,7 +26,7 @@
 		<div class="site_title">FAQ</div><br /><br /><br />
 		<div class="login_causes">
 			<b>-</b> Wie wird alles <b>finanziert</b>? Antwort: Bisher ausschlie&szlig;lich aus eigener Tasche des Administrators.<br /><br />
-			<b>-</b> Wie lange wird der <b>Chatverlauf gespeichert</b>? Antwort: Alle Nachrichten werden an jeden Monatsbeginn gelöscht.<br /><br />
+			<b>-</b> Wie lange wird der <b>Chatverlauf gespeichert</b>? Antwort: Alle Nachrichten werden jeden Monatsbeginn gelöscht.<br /><br />
 			<b>-</b> Was wird alles <b>gespeichert</b>? Antwort: Nutzername, E-Mail, Passwort und Registrierungsdatum. Nat&uuml;rlich nicht im Klartext, sondern nur die gehashten Werte.<br /><br />
 			<b>-</b> Wo kann ich <b>Vorschl&auml;ge f&uuml;r Plugins</b> einreichen? Antwort: Schreib einfach eine E-Mail mit den Betreff "Vorschlag f&uuml;r Plugin" an contact@friend-web.de und wir antworten in 2-3 Werktagen.<br /><br />
 			<b>-</b> Wird FriendWeb <b>mir E-Mails schreiben</b>? Antwort: Nur zur Accountbest&auml;tigung, andere Informationen werden von FriendWeb nur in der Kategorie "News" mitgeteilt. Falls du doch eine E-Mail von FriendWeb bekommen hast, ist diese eine Phishing E-Mail.<br /><br />
@@ -38,7 +37,7 @@
 	<div id="friends">
 	</div>
 <?php
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

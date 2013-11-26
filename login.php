@@ -6,11 +6,11 @@
 		$email = trim($_POST['email']);
 		$email = strip_tags($email);
 		$password = strip_tags($_POST['password']);
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
 		
-		$email = mysqli_real_escape_string($sql, $email);
-		$password = mysqli_real_escape_string($sql, $password);
+		require 'db.php';
+		
+		$email = mysql_real_escape_string($email);
+		$password = mysql_real_escape_string($password);
 		
 		// Erzeugung von Passwort-Hash mit Salt
 			//db = database und dc = document
@@ -24,21 +24,24 @@
 		
 		// Prüfen
 		$load = "SELECT `password` FROM `users` WHERE `email` = '".$email."'";
-		$db_saltedHash = mysqli_query($sql, $load);
-		$db_saltedHash = mysqli_fetch_row($db_saltedHash);
+		$db_saltedHash = mysql_query($load);
+		$db_saltedHash = mysql_fetch_row($db_saltedHash);
 		$is_active = "SELECT `active` FROM `users` WHERE `email` = '".$email."'";
-		$activated = mysqli_query($sql, $is_active);
-		$activated = mysqli_fetch_row($activated);
+		$activated = mysql_query($is_active);
+		$activated = mysql_fetch_row($activated);
 		
 		//Eventuellen Fehler definieren
-		
-		if ($activated[0] != 1)
+		if ($activated[0] == 0)
 		{
 			$error = "Dein Account wurde nocht nicht bestätigt.";
 		}
 		elseif ($db_saltedHash[0] != $dc_saltedHash)
 		{
-			$error = "Login nicht erfolgreich. Du hast entweder einen falschen Benutzernamen oder ein falsches Passwort eingegeben. <a href='forgot.php'>Passwort vergessen?</a><br/>";
+			$error = "Login nicht erfolgreich. Du hast entweder eine falsche E-Mail oder ein falsches Passwort eingegeben.";
+		}
+		elseif($activated[0] != 0 or $activated[0] != 1)
+		{
+			$error = "Es gibt keinen Account mit diesen Daten.";
 		}
 		else
 		{
@@ -49,8 +52,8 @@
 		{	
 			//Einloggen
 			$get_userid = "SELECT `userid` FROM `users` WHERE `email` = '".$email."'";
-			$userid = mysqli_query($sql, $get_userid);
-			$userid = mysqli_fetch_row($userid);
+			$userid = mysql_query($get_userid);
+			$userid = mysql_fetch_row($userid);
 			
 			$_SESSION["userid"] = $userid;
 			header("Location: index.php");
@@ -75,7 +78,7 @@
 			);
 			$template->display($params);
 		}
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

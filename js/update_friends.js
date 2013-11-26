@@ -1,4 +1,3 @@
-
 function AjaxRequest(_file, _readyFunction, _parameters)
 {
 	var file = _file;

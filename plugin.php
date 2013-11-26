@@ -123,7 +123,8 @@
 				
 				foreach($this->html->find("div.parent") as $element)
 				{
-					$elem = self::$mainhtml->find(explode(";",$element->id)[0],explode(";",$element->id)[1]);
+					$finder = explode(";",$element->id);
+					$elem = self::$mainhtml->find($finder[0],$finder[1]);
 					if($elem)
 					{
 						$elem->innertext .= $element->innertext;

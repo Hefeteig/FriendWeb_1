@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -43,12 +42,12 @@
 				//Gesuchten Namen filtern
 				$sf = trim($_POST['searched_friend']);
 				$sf = strip_tags($sf);
-				$sf = mysqli_real_escape_string($sql, $sf);
+				$sf = mysql_real_escape_string($sf);
 				
 				//Nach Namen suchen
 				$search = "SELECT `name` FROM `users` WHERE `name` = '".$sf."'";
-				$result = mysqli_query($sql, $search);
-				$result = mysqli_fetch_row($result);
+				$result = mysql_query($search);
+				$result = mysql_fetch_row($result);
 				
 				if($result)
 				{
@@ -72,34 +71,34 @@
 				//Filterung da das versteckte input-feld mit firebug manipuliert werden kann (Im Falle eines ungültigen Eintrages wird in die Tabelle `friends` als `friendid` "0" (und auch als `userid`)eingetragen)
 				$name = trim($name);
 				$name = strip_tags($name);
-				$name = mysqli_real_escape_string($sql, $name);
+				$name = mysql_real_escape_string($name);
 				
 				$friends_id = "SELECT `userid` FROM `users` WHERE `name` = '".$name."'";
-				$fid = mysqli_query($sql, $friends_id);
-				$fid = mysqli_fetch_row($fid);
+				$fid = mysql_query($friends_id);
+				$fid = mysql_fetch_row($fid);
 				
 				//Anfrage schon gesendet und angenommen?
 				$friend_query_1 = "SELECT `userid` FROM `friends` WHERE `friendid` = '".$fid[0]."' AND `userid` = '".$userid."' AND `confirmed` = 1";
-				$already_friends_1 = mysqli_query($sql, $friend_query_1);
-				$already_friends_1 = mysqli_fetch_row($already_friends_1);
+				$already_friends_1 = mysql_query($friend_query_1);
+				$already_friends_1 = mysql_fetch_row($already_friends_1);
 				
 				//Anfrage schon gesendet und nicht angenommen?
 				$friend_query_2 = "SELECT `userid` FROM `friends` WHERE `friendid` = '".$fid[0]."' AND `userid` = '".$userid."' AND `confirmed` = 0";
-				$already_friends_2 = mysqli_query($sql, $friend_query_2);
-				$already_friends_2 = mysqli_fetch_row($already_friends_2);
+				$already_friends_2 = mysql_query($friend_query_2);
+				$already_friends_2 = mysql_fetch_row($already_friends_2);
 				
 				//Zu viele Freunde?
 				$count_friends = "SELECT `userid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
-				$counted_friends = mysqli_query($sql, $count_friends);
+				$counted_friends = mysql_query($count_friends);
 				$array = array();
-				for($j = 0; $array[$j] = mysqli_fetch_assoc($counted_friends); $j++);
+				for($j = 0; $array[$j] = mysql_fetch_assoc($counted_friends); $j++);
 				array_pop($array);
 				$number = count($array);
 				
 				//Aktiviert?
 				$is_active = "SELECT `active` FROM `users` WHERE `userid` = '".$fid[0]."'";
-				$active = mysqli_query($sql, $is_active);
-				$active = mysqli_fetch_row($active);
+				$active = mysql_query($is_active);
+				$active = mysql_fetch_row($active);
 				
 				if($fid[0] == $userid)
 				{
@@ -136,13 +135,13 @@
 					//Anfrage senden
 					$insert_friend_1 = "INSERT INTO `friends` (`userid`, `friendid`, `confirmed`, `durch`) VALUES ('".$fid[0]."', '".$userid."', 0, '".$userid."')";
 					$insert_friend_2 = "INSERT INTO `friends` (`userid`, `friendid`, `confirmed`, `durch`) VALUES ('".$userid."', '".$fid[0]."', 0, '".$userid."')";
-					mysqli_query($sql, $insert_friend_1);
-					mysqli_query($sql, $insert_friend_2);
+					mysql_query($insert_friend_1);
+					mysql_query($insert_friend_2);
 					echo "<div class='alert alert-success alert_message'>Kontaktanfrage erfolgreich versendet.</div>";
 				}
 			}
 		}
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

@@ -43,6 +43,7 @@
 .round_corners
 {
 	border-radius: 15px;
+	overflow: auto;
 }
 
 .write_messages

@@ -1,12 +1,20 @@
-<body onload="init()"> und index.php l 37
 
-email ändern erstellen
+nachrichten abrufen nur im chat div
 nachrichten senden ohne neu zu laden
 löschen von allen nachrichten durch button
+oberfläche auf bildschirmauflösung anpassen
 Freundessuche vorschläge anzeigen
 Chat-Nachrichtenblöcke neueste oben
 content.html in content.php umbenennen
-vor dem upload jQuery compressed version nehmen
+jQuery compressed version nehmen
 styles.css ungenutzte elemente entfernen
-mysql verbindung in externe datei
-Plugin: Datei upload
+Plugin: modifizierbare startseite, Datei upload
+zu langer kontaktname chrome
+
+E-Mail:
+1&1 mailserverport öffnen
+email ändern erstellen
+mail service erstellen
+Passwort vergessen erstellen
+
+<body onload="init()">; index.php l. 37; simple_html_dom.php l. 1234

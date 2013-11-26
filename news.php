@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -33,7 +32,7 @@
 	<div id="friends">
 	</div>
 <?php
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{
@@ -44,16 +43,6 @@
 		$template = $twig->loadTemplate('logout-header.html');
 		$params = array();
 		$template->display($params);
-?>
-		<div class="main_field">
-			<br /><br /><br />
-			<div class="site_title">News</div><br /><br /><br />
-			<div class="news_article">
-				<b><i class="icon-ok"></i> 05.11.2013:</b><br /><br />
-				FriendWeb ist online.
-			</div>
-		</div>
-<?php
 	}
 ?>
 

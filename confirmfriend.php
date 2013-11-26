@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -33,17 +32,17 @@
 			//Filterung da das versteckte input-feld mit firebug manipuliert werden kann (Im Falle eines ungültigen Eintrages wird in die Tabelle `friends` als `friendid` "0" (und auch als `userid`)eingetragen)
 			$friends_name = trim($friends_name);
 			$friends_name = strip_tags($friends_name);
-			$friends_name = mysqli_real_escape_string($sql, $friends_name);
+			$friends_name = mysql_real_escape_string($friends_name);
 			
 			$friends_id = "SELECT `userid` FROM `users` WHERE `name` = '".$friends_name."'";
-			$fid = mysqli_query($sql, $friends_id);
-			$fid = mysqli_fetch_row($fid);
+			$fid = mysql_query($friends_id);
+			$fid = mysql_fetch_row($fid);
 			
 			//Zu viele Freunde?
 			$count_friends = "SELECT `userid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 1";
-			$counted_friends = mysqli_query($sql, $count_friends);
+			$counted_friends = mysql_query($count_friends);
 			$array = array();
-			for($j = 0; $array[$j] = mysqli_fetch_assoc($counted_friends); $j++);
+			for($j = 0; $array[$j] = mysql_fetch_assoc($counted_friends); $j++);
 			array_pop($array);
 			$number = count($array);
 			
@@ -62,8 +61,8 @@
 				//Anfrage bestätigen
 				$confirm_friend_1 = "UPDATE `friends` SET `confirmed` = 1 WHERE `userid` = '".$userid."' AND `friendid` = '".$fid[0]."'";
 				$confirm_friend_2 = "UPDATE `friends` SET `confirmed` = 1 WHERE `userid` = '".$fid[0]."' AND `friendid` = '".$userid."'";
-				mysqli_query($sql, $confirm_friend_1);
-				mysqli_query($sql, $confirm_friend_2);
+				mysql_query($confirm_friend_1);
+				mysql_query($confirm_friend_2);
 				echo "<div class='alert alert-success alert_message'>Kontaktanfrage bestätigt.</div>";
 			}
 		}
@@ -73,11 +72,11 @@
 			//Filterung da das versteckte input-feld mit firebug manipuliert werden kann (Im Falle eines ungültigen Eintrages wird in die Tabelle `friends` als `friendid` "0" (und auch als `userid`)eingetragen)
 			$friends_name = trim($friends_name);
 			$friends_name = strip_tags($friends_name);
-			$friends_name = mysqli_real_escape_string($sql, $friends_name);
+			$friends_name = mysql_real_escape_string($friends_name);
 			
 			$friends_id = "SELECT `userid` FROM `users` WHERE `name` = '".$friends_name."'";
-			$fid = mysqli_query($sql, $friends_id);
-			$fid = mysqli_fetch_row($fid);
+			$fid = mysql_query($friends_id);
+			$fid = mysql_fetch_row($fid);
 			
 			if($fid[0] == 0)
 			{
@@ -89,23 +88,23 @@
 				//Anfrage bestätigen
 				$confirm_friend_1 = "DELETE FROM `friends` WHERE `userid` = '".$userid."' AND `friendid` = '".$fid[0]."'";
 				$confirm_friend_2 = "DELETE FROM `friends` WHERE `userid` = '".$fid[0]."' AND `friendid` = '".$userid."'";
-				mysqli_query($sql, $confirm_friend_1);
-				mysqli_query($sql, $confirm_friend_2);
+				mysql_query($confirm_friend_1);
+				mysql_query($confirm_friend_2);
 				echo "<div class='alert alert-success alert_message'>Kontaktanfrage abgelehnt.</div>";
 			}
 		}
 		
 		$array = array();
 		$check_requests = "SELECT `friendid` FROM `friends` WHERE `userid` = '".$userid."' AND `confirmed` = 0 AND `durch` != '".$userid."'";
-		$requests = mysqli_query($sql, $check_requests);
-		for($j = 0; $array[$j] = mysqli_fetch_assoc($requests); $j++);
+		$requests = mysql_query($check_requests);
+		for($j = 0; $array[$j] = mysql_fetch_assoc($requests); $j++);
 		array_pop($array);
 		
 		foreach($array as $current_friendid)
 		{
 			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$current_friendid['friendid']."'";
-			$current_friend = mysqli_query($sql, $get_user);
-			$current_friend = mysqli_fetch_row($current_friend);
+			$current_friend = mysql_query($get_user);
+			$current_friend = mysql_fetch_row($current_friend);
 			if($current_friend)
 			{
 				echo "<br /><div class='offene_anfragen'><br />Offene Anfragen:<br /><br /></div>";
@@ -134,7 +133,7 @@
 	<div id="friends">
 	</div>
 <?php
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

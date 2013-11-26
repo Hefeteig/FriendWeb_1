@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -32,7 +31,7 @@
 	<div id="friends">
 	</div>
 <?php
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

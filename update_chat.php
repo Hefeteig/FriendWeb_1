@@ -1,8 +1,7 @@
 <?php
 	session_start();
 	$userid = $_SESSION['userid'][0];
-	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-	mysqli_select_db($sql, "friendweb");
+	require 'db.php';
 	
 	//Nachrichten abrufen
 	function decodeRand($str, $seed)
@@ -20,11 +19,11 @@
 	}
 	
 	$get_messages = "SELECT `from_id`,`to_id`,`content`,`datum` FROM `messages` WHERE `to_id` = '".$userid."' OR `from_id` = '".$userid."'";
-	$result = mysqli_query($sql, $get_messages);
+	$result = mysql_query($get_messages);
 	
 	$i = 0;
 	$chats = array();
-	while($row = mysqli_fetch_assoc($result))
+	while($row = mysql_fetch_assoc($result))
 	{	
 		if($row['from_id'] == $userid)
 		{
@@ -64,29 +63,30 @@
 	$sorted_chat = array_reverse($sorted_chat, TRUE);
 	
 	$get_users = "SELECT `name`, `userid` FROM `users`";
-	$users = mysqli_query($sql, $get_users);
+	$users = mysql_query($get_users);
 	
 	$row;
 	$user_array = array();
-	while($row = mysqli_fetch_assoc($users))
+	while($row = mysql_fetch_assoc($users))
 	{
 		$user_array[$row['userid']] = $row['name'];
 	}
 	
 	foreach($sorted_chat as $message)
 	{
-		$fid =  array_keys($sorted_chat, $message)[0];
+		$var = array_keys($sorted_chat, $message);
+		$fid =  $var[0];
 		$fname = str_replace(".", "", $fid);
 		$fname = $user_array[$fname];
 		
 		$get_time = "SELECT `last_update` FROM `users` WHERE `name` = '".$fname."'";
-		$time = mysqli_query($sql, $get_time);
-		$time = mysqli_fetch_row($time);
+		$time = mysql_query($get_time);
+		$time = mysql_fetch_row($time);
 		$time = $time[0];
 		
 		$is_online = "SELECT TIMEDIFF(NOW(), '".$time."') FROM `users` WHERE `name` = '".$fname."'";
-		$online = mysqli_query($sql, $is_online);
-		$online = mysqli_fetch_row($online);
+		$online = mysql_query($is_online);
+		$online = mysql_fetch_row($online);
 		$online = explode(':', $online[0]);
 		
 		if($online[0] != '00' or $online[1] != '00')
@@ -107,7 +107,7 @@
 			{
 				$name = $cm['from_id'];
 				$name = $user_array[$name];
-				echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . " ): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
+				echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . "): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
 			}
 			echo "</div></div>";
 			//Input Feld
@@ -122,18 +122,19 @@
 	}
 	foreach($sorted_chat as $message)
 	{
-		$fid =  array_keys($sorted_chat, $message)[0];
+		$var = array_keys($sorted_chat, $message);
+		$fid =  $var[0];
 		$fname = str_replace(".", "", $fid);
 		$fname = $user_array[$fname];
 		
 		$get_time = "SELECT `last_update` FROM `users` WHERE `name` = '".$fname."'";
-		$time = mysqli_query($sql, $get_time);
-		$time = mysqli_fetch_row($time);
+		$time = mysql_query($get_time);
+		$time = mysql_fetch_row($time);
 		$time = $time[0];
 		
 		$is_online = "SELECT TIMEDIFF(NOW(), '".$time."') FROM `users` WHERE `name` = '".$fname."'";
-		$online = mysqli_query($sql, $is_online);
-		$online = mysqli_fetch_row($online);
+		$online = mysql_query($is_online);
+		$online = mysql_fetch_row($online);
 		$online = explode(':', $online[0]);
 		
 		if($online[0] != '00' or $online[1] != '00')
@@ -167,4 +168,5 @@
 			echo "<br /><br /><br /><br />";
 		}
 	}
+	mysql_close($sql);
 ?>

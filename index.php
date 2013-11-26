@@ -27,16 +27,15 @@
 		{
 			$id = $_SESSION["userid"];
 		}
-		$connect = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($connect, "friendweb");
+		require 'db.php';
 		
 		$plg = array();
 		$result = array();
 		$id = $id[0];
 		
-		$result = mysqli_query($connect, "SELECT `plugin` FROM `activatedplugins` WHERE `user` = '".$id."'");
+		$result = mysql_query("SELECT `plugin` FROM `activatedplugins` WHERE `user` = '".$id."'");
 		
-		while ($data = mysqli_fetch_array($result))
+		while ($data = mysql_fetch_array($result))
 		{
 			$add = $data[0];
 			array_push($plg, $add);
@@ -110,5 +109,5 @@
 	{
 		header("Location: login.php");
 	}
-	mysqli_close($connect);
+	mysql_close($mysql);
 ?>

@@ -1,27 +1,26 @@
 <?php
-	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-	mysqli_select_db($sql, "friendweb");
+	require 'db.php';
 	
 	$email = $_GET['email'];
 	$get_userid = "SELECT `userid` FROM `users` WHERE `email` = '".$email."'";
-	$userid = mysqli_query($sql, $get_userid);
-	$userid = mysqli_fetch_row($userid);
+	$userid = mysql_query($get_userid);
+	$userid = mysql_fetch_row($userid);
 	$userid = $userid[0];
 	
 	if($userid)
 	{
 		$set_active = "UPDATE `users` SET `active` = 1 WHERE `userid` = ".$userid."";
-		mysqli_query($sql, $set_active);
+		mysql_query($set_active);
 		
 		$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
 		$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
-		mysqli_query($sql, $insert_activatedplugins_1);
-		mysqli_query($sql, $insert_activatedplugins_2);
+		mysql_query($insert_activatedplugins_1);
+		mysql_query($insert_activatedplugins_2);
 		
 		$insert_friends = "INSERT INTO `friends` (`userid`, `friends`) VALUES (".$userid.", '')";
-		mysqli_query($sql, $insert_friends);
+		mysql_query($insert_friends);
 		
-		mysqli_close($sql);
+		mysql_close($sql);
 		
 		require_once "lib/Twig/Autoloader.php";
 		Twig_Autoloader::register();

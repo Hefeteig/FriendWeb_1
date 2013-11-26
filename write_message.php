@@ -11,8 +11,7 @@
 	if(isset($_SESSION["userid"]))
 	{
 		$userid = $_SESSION['userid'][0];
-		$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-		mysqli_select_db($sql, "friendweb");
+		require 'db.php';
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
@@ -53,24 +52,24 @@
 			$message = $_POST['message'];
 			$receiver = trim($receiver);
 			$receiver = strip_tags($receiver);
-			$receiver = mysqli_real_escape_string($sql, $receiver);
+			$receiver = mysql_real_escape_string($receiver);
 			$message = strip_tags($message);
-			$message = mysqli_real_escape_string($sql, $message);
+			$message = mysql_real_escape_string($message);
 			
 			//Empfänger ID ermitteln
 			$get_fid = "SELECT `userid` FROM `users` WHERE `name` = '".$receiver."'";
-			$fid = mysqli_query($sql, $get_fid);
-			$fid = mysqli_fetch_row($fid);
+			$fid = mysql_query($get_fid);
+			$fid = mysql_fetch_row($fid);
 			
 			//Empfängeraccount bestätigt?
 			$is_active = "SELECT `active` FROM `users` WHERE `userid` = '".$fid[0]."'";
-			$active = mysqli_query($sql, $is_active);
-			$active = mysqli_fetch_row($active); 
+			$active = mysql_query($is_active);
+			$active = mysql_fetch_row($active); 
 			
 			//Empfänger in Kontaktliste?
 			$is_friend = "SELECT `confirmed` FROM `friends` WHERE `userid` = '".$userid."' AND `friendid` = '".$fid[0]."'";
-			$friend = mysqli_query($sql, $is_friend);
-			$friend = mysqli_fetch_row($friend);
+			$friend = mysql_query($is_friend);
+			$friend = mysql_fetch_row($friend);
 			
 			if($active[0] == '0')
 			{
@@ -97,7 +96,7 @@
 				//Senden
 				//Username bestimmen
 				$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
-				$user = mysqli_query($sql, $get_user);
+				$user = mysql_query($get_user);
 				
 				//Verschlüsseln
 				
@@ -118,7 +117,7 @@
 				$cryptedMessage = encodeRand($message, $seed);
 				
 				$insert_message = "INSERT INTO `messages` (`from_id`, `to_id`, `content`) VALUES ('".$userid."', '".$fid[0]."', '".$cryptedMessage."')";
-				mysqli_query($sql, $insert_message);
+				mysql_query($insert_message);
 				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='chat.php'>Nachrichtenverlauf</a> verschoben.</div>";
 			}
 			else
@@ -127,7 +126,7 @@
 				echo "<div class='alert alert-block alert_message'>Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.</div>";
 			}
 		}
-		mysqli_close($sql);
+		mysql_close($sql);
 	}
 	else
 	{

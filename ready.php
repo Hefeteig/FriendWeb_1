@@ -5,20 +5,19 @@
 	$email = strip_tags($email);
 	$user = strip_tags($user);
 	$password = strip_tags($_POST['Passwort_1']);
-	$sql = mysqli_connect("localhost", "root", "XAMPPpassword");
-	mysqli_select_db($sql, "friendweb");
+	require 'db.php';
 	
-	$email = mysqli_real_escape_string($sql, $email);
-	$user = mysqli_real_escape_string($sql, $user);
-	$password = mysqli_real_escape_string($sql, $password);
+	$email = mysql_real_escape_string($email);
+	$user = mysql_real_escape_string($user);
+	$password = mysql_real_escape_string($password);
 	
 	//Nutzer vorhanden?
 	$user_query = "SELECT `name` FROM `users` WHERE `name` = '".$user."'";
 	$email_query = "SELECT `email` FROM `users` WHERE `email` = '".$email."'";
-	$user_exist = mysqli_query($sql, $user_query);
-	$user_exist = mysqli_fetch_row($user_exist);
-	$email_exist = mysqli_query($sql, $email_query);
-	$email_exist = mysqli_fetch_row($email_exist);
+	$user_exist = mysql_query($user_query);
+	$user_exist = mysql_fetch_row($user_exist);
+	$email_exist = mysql_query($email_query);
+	$email_exist = mysql_fetch_row($email_exist);
 	if (empty ($_POST['Mail']) == 1 or empty ($_POST['Name']) == 1 or empty ($_POST['Passwort_1']) == 1 or empty ($_POST['Passwort_2']) == 1 or $_POST['Passwort_1'] != $_POST['Passwort_2'] or filter_var($_POST['Mail'], FILTER_VALIDATE_EMAIL) == FALSE
 		or preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $_POST['Name'] . $_POST['Mail'] . $_POST['Passwort_1'] . $_POST['Passwort_2'])
 		or $user_exist[0] or $email_exist[0])
@@ -67,8 +66,31 @@
 	}
 	else
 	{
-		
+		/*
 		//E-Mail vorbereiten und senden
+		require("lib/phpmailer/class.phpmailer.php");
+		$mail = new PHPMailer();
+		$mail->isSendMail();  // telling the class to use SMTP
+		$mail->Host     = "smtp.1und1.de"; // SMTP server
+		$mail->From     = "mail@friend-web.de";
+		$mail->AddAddress($email);
+		$mail->Subject  = "Registrierung bei FriendWeb";
+		$mail->Body     = "
+						Hallo ".$user.",\n
+						vielen Dank, dass du dich bei FriendWeb registriert hast. Um deine Registrierung abzuschlie&szlig;en, klicke bitte auf den folgenden Link:\n
+						http://friend-web.de/confirm.php?email=".$email."\n
+						Mit freundlichen Gr&uuml;&szlig;en\n\n
+						Dein FriendWeb Team";
+		$mail->WordWrap = 50;
+		
+		if(!$mail->Send()) {
+		  echo 'Message was not sent.';
+		  echo 'Mailer error: ' . $mail->ErrorInfo;
+		} else {
+		  echo 'Message has been sent.';
+		}
+		
+		
 		$absender = "FriendWeb <friend@web.de>";
 		$headers   = array();
 		$headers[] = "MIME-Version: 1.0";
@@ -86,7 +108,7 @@
 		$content = $twig->render("email.phtml", $params);
 
 		mail ($email, "Registrierung bei FriendWeb", $content, implode("\r\n",$headers));
-		
+		*/
 		//Passwort-Hash mit Salt erstellen und in DB eintragen
 		function saltPassword($pe)
 		{
@@ -97,13 +119,16 @@
 		$saltedHash = saltPassword($pe);
 		
 		$get_userid = "SELECT `name` FROM `users`";
-		$users = mysqli_query($sql, $get_userid);
-		$userid = mysqli_num_rows($users) + 1;
-		echo $userid;
+		$users = mysql_query($get_userid);
+		$userid = mysql_num_rows($users) + 1;
+		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 1)";
+		mysql_query($insert_users);
 		
-		//$userid = 5;
-		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 0)";
-		mysqli_query($sql, $insert_users);
+		$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
+		$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
+		mysql_query($insert_activatedplugins_1);
+		mysql_query($insert_activatedplugins_2);
+		
 		
 		//Erfolgsmeldung
 		require_once 'lib/Twig/Autoloader.php';
@@ -113,7 +138,8 @@
 		$template = $twig->loadTemplate('login.html');
 		$params = array(
 			"if_failed" => '',
-			"register" => "<div class='alert alert-success'>Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br />Wenn die Registrierung nicht innerhalb von 24 Stunden bestätigt wurde, wird der Link und die Registrierungsdaten gelöscht.</div>",
+			"register" => "<div class='alert alert-success'>Der Account wurde erfolgreich erstellt.</div>",
+			//wenn emailbestätigung aktiviert: Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br />Wenn die Registrierung nicht innerhalb von 24 Stunden bestätigt wurde, wird der Link und die Registrierungsdaten gelöscht.
 			"email" => '',
 			"password" => '',
 			"Name" => '',
@@ -123,5 +149,5 @@
 		);
 		$template->display($params);
 	}
-	mysqli_close($sql);
+	mysql_close($sql);
 ?>
