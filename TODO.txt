@@ -1,20 +1,18 @@
 
-nachrichten abrufen nur im chat div
+werden mails von gestern gelöscht?
+nachrichten abrufen nur im chat div (daten abgetrennt an js, dann divs erstellen)
 nachrichten senden ohne neu zu laden
-löschen von allen nachrichten durch button
 oberfläche auf bildschirmauflösung anpassen
 Freundessuche vorschläge anzeigen
 Chat-Nachrichtenblöcke neueste oben
-content.html in content.php umbenennen
 jQuery compressed version nehmen
-styles.css ungenutzte elemente entfernen
 Plugin: modifizierbare startseite, Datei upload
+error_reporting(0); in db.php wenn fertig
+styles.css ungenutzte elemente entfernen
 zu langer kontaktname chrome
 
 E-Mail:
-1&1 mailserverport öffnen
 email ändern erstellen
-mail service erstellen
 Passwort vergessen erstellen
 
 <body onload="init()">; index.php l. 37; simple_html_dom.php l. 1234

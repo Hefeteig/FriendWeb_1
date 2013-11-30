@@ -12,13 +12,13 @@
 		$set_active = "UPDATE `users` SET `active` = 1 WHERE `userid` = ".$userid."";
 		mysql_query($set_active);
 		
+		$set_mailservice = "INSERT INTO `mailservice` (`userid`, `written_emails`) VALUES (".$userid.", 0)";
+		mysql_query($set_mailservice);
+		
 		$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
 		$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
 		mysql_query($insert_activatedplugins_1);
 		mysql_query($insert_activatedplugins_2);
-		
-		$insert_friends = "INSERT INTO `friends` (`userid`, `friends`) VALUES (".$userid.", '')";
-		mysql_query($insert_friends);
 		
 		mysql_close($sql);
 		

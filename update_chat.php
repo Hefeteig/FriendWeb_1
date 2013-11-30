@@ -100,7 +100,7 @@
 			echo "<div class='chat_all'><div class='chat_header'>";
 			//Name des Chatpartners
 			echo "<div class='status_on'><br />" . $fname . "<br /><br /></div>";
-			echo "</div><div class='chat_content'><br />";
+			echo "</div><br />";
 			//Chatcontent
 			$message = array_reverse($message, TRUE);
 			foreach($message as $cm)
@@ -109,7 +109,7 @@
 				$name = $user_array[$name];
 				echo "&nbsp;&nbsp;&nbsp;<b>" . $name . "</b> (" . $cm['datum'] . "): &nbsp;&nbsp;" . $cm['content'] . "<br /><br />";
 			}
-			echo "</div></div>";
+			echo "</div>";
 			//Input Feld
 			echo "
 				<form name='answer_form' action='chat.php' method='post' class='answer_form'>

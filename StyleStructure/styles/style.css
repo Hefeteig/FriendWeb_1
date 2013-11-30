@@ -8,6 +8,12 @@
 	left: 5%;
 }
 
+.delete_messages
+{
+	position: absolute;
+	left: 85%;
+	top: 15%;
+}
 .answer_form
 {
 	position: absolute;

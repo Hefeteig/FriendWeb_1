@@ -20,11 +20,24 @@
 		$template = $twig->loadTemplate('login-header.html');
 		$params = array();
 		$template->display($params);
+		
+		$deleted;
+		if(isset($_POST['delete']))
+		{
+			$delete = "DELETE FROM `messages` WHERE `from_id` = '".$userid."' or `to_id` = '".$userid."'";
+			mysql_query($delete);
+			$deleted = "<div class='alert alert-success'>Alle Nachrichten wurden erfolgreich gelöscht.</div>";
+		}
 ?>
 	<div id="protokoll">
 		<br /><br /><br /><br />
-		<div class="site_title">Nachrichtenverlauf</div><br /><br /><br /><br />
+		<div class="site_title">Nachrichtenverlauf</div>
+		<form name='delete_messages' action='chat.php' method='post'>
+			 <button class="btn btn-primary delete_messages" type="submit" name="delete"><i class="icon-search icon-trash"></i> &nbsp;Alle Nachrichten löschen</button>
+		</form>
+		<br /><br /><br /><br />
 <?php
+		echo $deleted;
 		//Nachricht gesendet
 		if(isset($_POST['receiver']) && $_POST['message'] == '')
 		{
