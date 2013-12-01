@@ -14,8 +14,20 @@
 		require 'db.php';
 		error_reporting(0);
 		//E-Mails älter als 24 Stunden löschen
-		$delete = "UPDATE `mailservice` SET `written_emails` = 0 WHERE `time` <= SUBDATE(DATE(NOW()),INTERVAL 1 DAY)";
-		mysql_query($delete);
+		$db_date_query = "SELECT `time` FROM `mailservice` WHERE `userid` = '".$userid."'";
+		$db_time = mysql_query($db_date_query);
+		$db_time = mysql_fetch_row($db_time);
+		$cur_date = date("Y-m-d");
+		
+		foreach($db_time as $cur_db_time)
+		{
+			$contains = strpos($cur_db_time, $cur_date);
+			if($contains === false)
+			{
+				$update = "UPDATE `mailservice` SET `written_emails` = 0 WHERE `userid` = '".$userid."'";
+				mysql_query($update);
+			}
+		}
 		
 		require_once 'lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();

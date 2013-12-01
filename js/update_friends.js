@@ -56,5 +56,5 @@ function chatrequest()
 {
 	var request = new AjaxRequest("update_chat.php", function(request){document.getElementById("chat_content").innerHTML=request.responseText;}, []);
 	request.send();
-	window.setTimeout(chatrequest, 10000);
+	window.setTimeout(chatrequest, 15000);
 }
