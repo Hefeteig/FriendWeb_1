@@ -30,10 +30,6 @@
 					<button type="submit" class="btn btn-large btn-primary">Suchen</button>
 				</form>
 			</div>
-	</div>
-	
-	<div id="friends">
-	</div>
 <?php
 		if(isset($_POST['searched_friend']) || isset($_POST['friends_name']))
 		{
@@ -61,7 +57,7 @@
 				}
 				else
 				{
-					echo "<div class='result_heading'>Es wurde kein Nutzer mit dem Namen &quot;".$sf."&quot; gefunden.</div>";
+					echo "<div class='alert alert-block alert_message'>Es wurde kein Nutzer mit dem Namen &quot;".$sf."&quot; gefunden.</div>";
 				}
 			}
 			//Kontaktanfrage senden
@@ -142,6 +138,12 @@
 			}
 		}
 		mysql_close($sql);
+?>
+	</div>
+	
+	<div id="friends">
+	</div>
+<?php
 	}
 	else
 	{

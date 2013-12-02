@@ -33,9 +33,6 @@
 					</div>
 				</form><br />
 			</div>
-	</div>
-	<div id="friends">
-	</div>
 <?php
 		if(isset($_POST['receiver']) && $_POST['message'] == '')
 		{
@@ -127,6 +124,11 @@
 			}
 		}
 		mysql_close($sql);
+?>
+	</div>
+	<div id="friends">
+	</div>
+<?php
 	}
 	else
 	{

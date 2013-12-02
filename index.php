@@ -109,5 +109,5 @@
 	{
 		header("Location: login.php");
 	}
-	mysql_close($mysql);
+	mysql_close($sql);
 ?>

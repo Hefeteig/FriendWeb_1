@@ -7,7 +7,7 @@
 	$friends = mysql_query($select_friends);
 	
 	//Onlinestatus updaten
-	$update_query = "UPDATE `users` SET `last_update` = CURRENT_TIMESTAMP WHERE `userid` = '".$userid."'";
+	$update_query = "UPDATE `users` SET `last_update` = NOW() WHERE `userid` = '".$userid."'";
 	$update = mysql_query($update_query);
 	
 	for($j = 0; $array[$j] = mysql_fetch_assoc($friends); $j++);

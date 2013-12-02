@@ -22,13 +22,13 @@
 		$template->display($params);
 ?>
 	<div id="protokoll">
-		<br /><br /><br />
-		<div class="site_title">News</div><br /><br /><br />
-		<div class="news_article">
-			<b><i class="icon-ok"></i> 01.12.2013 23:30</b><br /><br />
-			FriendWeb ist online.
+		<br /><br /><br /><br />
+		<div class="site_title">404 Fehler</div><br /><br /><br /><br />
+		<div class="login_causes">
+			Die angeforderte Seite gibt es nicht.<br />Bitte überprüfe die URL auf Tippfehler oder <a href="contact.php">kontaktiere</a> gegebenenfalls den Administrator.<br />
 		</div>
 	</div>
+	
 	<div id="friends">
 	</div>
 <?php
@@ -36,17 +36,6 @@
 	}
 	else
 	{
-		require_once 'lib/Twig/Autoloader.php';
-		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem('./');
-		$twig = new Twig_Environment($loader, array());
-		$template = $twig->loadTemplate('logout-header.html');
-		$params = array();
-		$template->display($params);
+		header("Location: index.php");
 	}
 ?>
-
-
-
-
-

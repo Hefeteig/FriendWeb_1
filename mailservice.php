@@ -13,20 +13,18 @@
 		$userid = $_SESSION['userid'][0];
 		require 'db.php';
 		error_reporting(0);
-		//E-Mails älter als 24 Stunden löschen
+		
+		//E-Mailcounter updaten
 		$db_date_query = "SELECT `time` FROM `mailservice` WHERE `userid` = '".$userid."'";
 		$db_time = mysql_query($db_date_query);
 		$db_time = mysql_fetch_row($db_time);
 		$cur_date = date("Y-m-d");
 		
-		foreach($db_time as $cur_db_time)
+		$contains = strpos($db_time[0], $cur_date);
+		if($contains === false)
 		{
-			$contains = strpos($cur_db_time, $cur_date);
-			if($contains === false)
-			{
-				$update = "UPDATE `mailservice` SET `written_emails` = 0 WHERE `userid` = '".$userid."'";
-				mysql_query($update);
-			}
+			$update = "UPDATE `mailservice` SET `written_emails` = 0 WHERE `userid` = '".$userid."'";
+			mysql_query($update);
 		}
 		
 		require_once 'lib/Twig/Autoloader.php';
@@ -51,7 +49,7 @@
 				settype($still, "integer");
 				$still = 15 - $still;
 				
-				echo "<div class='alert alert-info'>Du kannst noch ".$still." E-Mails schreiben.</div><br /><br /><br /><br />";
+				echo "<div class='alert alert-info'>Du kannst noch ".$still." E-Mails schreiben.<button type='button' class='close' data-dismiss='alert'>&times;</button></div><br />";
 					
 				if (isset ($_POST['to']) or isset ($_POST['from_1']) or isset ($_POST['from_2']) or isset ($_POST['head']) or isset ($_POST['text']) or isset ($_POST['count']))
 				{
@@ -74,26 +72,35 @@
 					$text = mysql_real_escape_string($text);
 					
 					if ( empty ($to) == 1 or empty ($from_1) == 1 or empty ($from_2) == 1 or empty ($head) == 1 or empty ($text) == 1 or !is_numeric($count) or empty ($count) == 1 or $count > 15 
-						or preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $to . $from_1 . $from_2 . $head . $text . $count) or filter_var($from_2, FILTER_VALIDATE_EMAIL) == FALSE)
+						or preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $to . $from_1 . $from_2 . $head . $text . $count)
+						or filter_var($from_2, FILTER_VALIDATE_EMAIL) == FALSE or $_POST['bedingung'] != "confirmed")
 					{
 						//Wenn Fehler aufgetreten
 						if(preg_match("(to:|cc:|bcc:|from:|subject:|reply-to:|content-type:|MIME-Version:|multipart/mixed|Content-Transfer-Encoding:)ims", $to . $from_1 . $from_2 . $head . $text . $count))
 						{
 							$error = "Du hast fehlerhafte Ausdrücke eingegeben.";
 						}
-						elseif(!is_numeric($count) or $count > 15)
+						elseif(empty ($to) == 1 or empty ($from_1) == 1 or empty ($from_2) == 1 or empty ($head) == 1 or empty ($text) == 1 or !is_numeric($count) or empty ($count) == 1)
 						{
-							$error = "Bitte gib eine Zahl unter 15 ein.";
+							$error = "Bitte fülle alle Felder aus.";
+						}
+						elseif($_POST['bedingung'] != "confirmed")
+						{
+							$error = "Du musst die Nutzungsbedingungen lesen und akzeptieren, um den Mailservice zu nutzen.";
 						}
 						elseif(filter_var($from_2, FILTER_VALIDATE_EMAIL) == FALSE)
 						{
 							$error = "Die Absenderadresse entspricht nicht dem gültigen E-Mail Schema, bitte trage eine neue ein. Es muss keine existierende E-Mail sein, sondern nur die notwendigen Ausdrücke (z.B. @) enthalten.";
 						}
+						elseif(!is_numeric($count) or $count > 15)
+						{
+							$error = "Bitte gib eine Zahl unter 15 ein.";
+						}
 						else
 						{
 							$error = "Es wurden nicht alle Felder korrekt ausgefüllt.";
 						}
-						echo "<div class='alert alert-error alert_message'>".$error."</div><br /><br /><br /><br /><br />";
+						echo "<div class='alert alert-error'>".$error."<button type='button' class='close' data-dismiss='alert'>&times;</button></div><br /><br />";
 						
 						require_once 'lib/Twig/Autoloader.php';
 						Twig_Autoloader::register();
@@ -176,7 +183,7 @@
 								mail ($to, $head, $convert, implode("\r\n",$headers));
 								$i++;
 							}
-							$count_up = "UPDATE `mailservice` SET `written_emails` = '".$left."' WHERE `userid` = '".$userid."'";
+							$count_up = "UPDATE `mailservice` SET `written_emails` = '".$left."', `time` = NOW() WHERE `userid` = '".$userid."'";
 							mysql_query($count_up);
 							
 							echo "<div class='alert alert-success alert_message'>E-Mails erfolgreich versendet.</div><br /><br />";

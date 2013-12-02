@@ -24,7 +24,6 @@
 	<div id="protokoll">
 		<br /><br /><br /><br />
 		<div class="site_title">Kontaktanfragen verwalten</div><br /><br /><br /><br />
-	</div>
 <?php
 		if(isset($_POST['allow']))
 		{
@@ -130,6 +129,7 @@
 			echo "<br /><div class='offene_anfragen'><br />Du hast keine unbestätigten Kontaktanfragen.<br /><br /></div>";
 		}
 ?>
+	</div>
 	<div id="friends">
 	</div>
 <?php

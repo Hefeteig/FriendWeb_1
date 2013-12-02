@@ -21,6 +21,25 @@
 		$params = array();
 		$template->display($params);
 		
+		//Profildaten auslesen
+		$get_name = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+		$get_email = "SELECT `email` FROM `users` WHERE `userid` = '".$userid."'";
+		$name = mysql_query($get_name);
+		$email = mysql_query($get_email);
+		$name = mysql_fetch_row($name);
+		$email = mysql_fetch_row($email);
+?>
+	<div id="protokoll">
+		<br /><br /><br /><br />
+		<div class="site_title">Profileinstellungen</div><br /><br /><br /><br />
+		<div class="login_causes">
+			<form name="change_data" action="settings_profile.php" method="post">
+				Name: <?php echo $name[0];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="change_name" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Ändern</button><br /><br /><?php echo $error_1; ?><br />
+				E-Mail: <?php echo $email[0];?><br /><br /><br />
+				<input type="text" name="change_pw" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Passwort ändern</button><br /><br /><?php echo $error_3; ?>
+			</form>
+		</div>
+<?php
 		//Falls Name, E-Mail oder Passwort geändert
 		if($_POST['change_name'] != '')
 		{
@@ -122,29 +141,7 @@
 			$error_2 = '';
 			$error_3 = '';
 		}
-		
-		//Profildaten auslesen
-		$get_name = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
-		$get_email = "SELECT `email` FROM `users` WHERE `userid` = '".$userid."'";
-		$get_register_date = "SELECT `register_date` FROM `users` WHERE `userid` = '".$userid."'";
-		$name = mysql_query($get_name);
-		$email = mysql_query($get_email);
-		$register_date = mysql_query($get_register_date);
-		$name = mysql_fetch_row($name);
-		$email = mysql_fetch_row($email);
-		$register_date = mysql_fetch_row($register_date);
 ?>
-	<div id="protokoll">
-		<br /><br /><br /><br />
-		<div class="site_title">Profileinstellungen</div><br /><br /><br /><br />
-		<div class="login_causes">
-			<form name="change_data" action="settings_profile.php" method="post">
-				Name: <?php echo $name[0];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="change_name" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Ändern</button><br /><br /><?php echo $error_1; ?><br />
-				E-Mail: <?php echo $email[0];?><br /><br /><br />
-				Registrierungsdatum: <?php echo $register_date[0];?><br /><br /><br />
-				<input type="text" name="change_pw" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Passwort Ändern</button><br /><br /><?php echo $error_3; ?>
-			</form>
-		</div>
 	</div>
 	
 	<div id="friends">

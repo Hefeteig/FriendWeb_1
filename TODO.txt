@@ -1,18 +1,19 @@
 
-werden mails von gestern gelöscht?
+settings_profile wenn namen ändern alert
+kontakformular
+formulare ohne bootstrap
 nachrichten abrufen nur im chat div (daten abgetrennt an js, dann divs erstellen)
+nachrichten löschen nur im div und älter als
 nachrichten senden ohne neu zu laden
-oberfläche auf bildschirmauflösung anpassen
+nachrichten schreiben in einem button
 Freundessuche vorschläge anzeigen
 Chat-Nachrichtenblöcke neueste oben
-jQuery compressed version nehmen
 Plugin: modifizierbare startseite, Datei upload
-error_reporting(0); in db.php wenn fertig
+email ändern erstellen
+Passwort vergessen erstellen
+Logo Link einfügen
 styles.css ungenutzte elemente entfernen
 zu langer kontaktname chrome
 
-E-Mail:
-email ändern erstellen
-Passwort vergessen erstellen
 
 <body onload="init()">; index.php l. 37; simple_html_dom.php l. 1234
