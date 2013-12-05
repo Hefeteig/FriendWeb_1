@@ -28,18 +28,7 @@
 		$email = mysql_query($get_email);
 		$name = mysql_fetch_row($name);
 		$email = mysql_fetch_row($email);
-?>
-	<div id="protokoll">
-		<br /><br /><br /><br />
-		<div class="site_title">Profileinstellungen</div><br /><br /><br /><br />
-		<div class="login_causes">
-			<form name="change_data" action="settings_profile.php" method="post">
-				Name: <?php echo $name[0];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="change_name" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Ändern</button><br /><br /><?php echo $error_1; ?><br />
-				E-Mail: <?php echo $email[0];?><br /><br /><br />
-				<input type="text" name="change_pw" size="15" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Passwort ändern</button><br /><br /><?php echo $error_3; ?>
-			</form>
-		</div>
-<?php
+		
 		//Falls Name, E-Mail oder Passwort geändert
 		if($_POST['change_name'] != '')
 		{
@@ -79,11 +68,17 @@
 			{
 				$error_1 = "<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button>Dein neuer Name enhält fehlerhafte Ausdrücke.</div>";
 			}
+			elseif(empty($new_name))
+			{
+				$error_1 = "<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button>Du hast für deinen neuen Namen Elemente (z.B. aus HTML) verwendet, die rausgefiltert wurden
+							und dadurch würde dein neuer Name keine Zeichen enthalten. Versuche es bitte erneut mit anderen Zeichen.</div>";
+			}
 			else
 			{
 				$cn = "UPDATE `users` SET `name` = '".$new_name."' WHERE `name` = '".$old_name."'";
 				mysql_query($cn);
 				$error_1 = "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button>Du heißt ab jetzt &quot;".$new_name."&quot;.</div>";
+				$changed = true;
 			}
 		}
 		/*elseif($_POST['change_email'] != '')
@@ -141,7 +136,31 @@
 			$error_2 = '';
 			$error_3 = '';
 		}
+
 ?>
+	<div id="protokoll">
+		<br /><br /><br /><br />
+		<div class="site_title">Profileinstellungen</div><br /><br /><br /><br />
+		<div class="login_causes">
+			<form name="change_data" action="settings_profile.php" method="post">
+				Name:
+				<?php
+					if($changed == true)
+					{
+						$get_name = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+						$name = mysql_query($get_name);
+						$name = mysql_fetch_row($name);
+						echo $name[0];
+					}
+					else
+					{
+						echo $name[0];
+					}
+				?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="change_name" class="input-xlarge" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Ändern</button><br /><br /><?php echo $error_1; ?><br />
+				E-Mail: <?php echo $email[0];?><br /><br /><br />
+				<input type="text" name="change_pw" class="input-xlarge" maxlength="50">&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" ><i class="icon-pencil"></i>&nbsp;&nbsp;Passwort ändern</button><br /><br /><?php echo $error_3; ?>
+			</form>
+		</div>
 	</div>
 	
 	<div id="friends">

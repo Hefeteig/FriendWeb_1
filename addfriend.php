@@ -26,7 +26,7 @@
 		<div class="site_title">Kontakt hinzufügen</div><br /><br /><br /><br />
 			<div class="center">
 				<form name="search" action="addfriend.php" method="post">
-					<input type="text" size="40" maxlength="50" name="searched_friend" autofocus/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" class="input-xlarge" maxlength="50" name="searched_friend" autofocus/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<button type="submit" class="btn btn-large btn-primary">Suchen</button>
 				</form>
 			</div>
@@ -57,7 +57,7 @@
 				}
 				else
 				{
-					echo "<div class='alert alert-block alert_message'>Es wurde kein Nutzer mit dem Namen &quot;".$sf."&quot; gefunden.</div>";
+					echo "<div class='alert alert-error alert_message'>Es wurde kein Nutzer mit dem Namen &quot;".$sf."&quot; gefunden.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 				}
 			}
 			//Kontaktanfrage senden

@@ -39,7 +39,7 @@
 							<a href="impressum.php"><button class="btn btn-primary" type="button"><i class="icon-list-alt"></i> Impressum</button></a>
 							
 						<form class="navbar-form login_field" action="login.php" method="post">
-							<input name="email" class="span2" type="text" size="30" maxlength="150" placeholder="E-Mail" autofocus/>&nbsp;&nbsp;
+							<input name="email" class="span2" type="text" size="30" maxlength="150" placeholder="E-Mail" value="{{ email }}" autofocus/>&nbsp;&nbsp;
 							<input name="password" class="span2" type="password" size="30" maxlength="150" placeholder="Passwort"/>
 							<button type="submit" class="btn">Einloggen</button>
 						</form>
@@ -81,10 +81,10 @@
 						<table>
 						  <tr>
 							<td>Benutzername:</td>
-							<td><input id="name" type="text" size="40" maxlength="50" name="Name" value="{{ name }}" /></td>
+							<td><input id="name" type="text" class="input-xlarge" maxlength="50" name="Name" value="{{ name }}" /></td>
 						  </tr><tr>
 							<td>E-Mail-Adresse:</td>
-							<td><input id="email" type="text" size="40" maxlength="50" name="Mail" value="{{ mail }}" /></td>
+							<td><input id="email" type="text" class="input-xlarge" maxlength="50" name="Mail" value="{{ mail }}" /></td>
 						  </tr>
 						</table>
 					</fieldset>
@@ -96,10 +96,10 @@
 						<table>
 						  <tr>
 							<td>Passwort eingeben:</td>
-							<td><input type="password" size="40" maxlength="50" name="Passwort_1" /></td>
+							<td><input type="password" class="input-xlarge" maxlength="50" name="Passwort_1" /></td>
 						  </tr><tr>
 							<td>Passwort wiederholen:</td>
-							<td><input type="password" size="40" maxlength="50" name="Passwort_2" /></td>
+							<td><input type="password" class="input-xlarge" maxlength="50" name="Passwort_2" /></td>
 						  </tr>
 						</table>
 					</fieldset>

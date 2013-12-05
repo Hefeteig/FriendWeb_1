@@ -1,16 +1,15 @@
 
-settings_profile wenn namen ändern alert
 kontakformular
-formulare ohne bootstrap
 nachrichten abrufen nur im chat div (daten abgetrennt an js, dann divs erstellen)
-nachrichten löschen nur im div und älter als
 nachrichten senden ohne neu zu laden
-nachrichten schreiben in einem button
+nachrichten schreiben und verlauf in einem button
+nachrichten löschen nur im div und älter als
 Freundessuche vorschläge anzeigen
 Chat-Nachrichtenblöcke neueste oben
 Plugin: modifizierbare startseite, Datei upload
 email ändern erstellen
 Passwort vergessen erstellen
+email hashen
 Logo Link einfügen
 styles.css ungenutzte elemente entfernen
 zu langer kontaktname chrome

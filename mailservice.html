@@ -1,12 +1,12 @@
 <form action="mailservice.php" name="write_mail" method="post">
-	Empfängermail:&nbsp;&nbsp;&nbsp;<input type="text" name="to" value="{{ to }}"></input><br /><br />
-	Absendername:&nbsp;&nbsp;&nbsp;<input type="text" name="from_1" value="{{ from1 }}"></input><br /><br />
-	Absendermail:&nbsp;&nbsp;&nbsp;<input type="text" name="from_2" value="{{ from2 }}"><br /><br />
-	Betreff:&nbsp;&nbsp;&nbsp;<input type="text" name="head" value="{{ head }}"></input><br /><br />
+	Empfängermail:&nbsp;&nbsp;&nbsp;<input type="text" name="to" class="input-xlarge" value="{{ to }}"></input><br /><br />
+	Absendername:&nbsp;&nbsp;&nbsp;<input type="text" name="from_1" class="input-xlarge" value="{{ from1 }}"></input><br /><br />
+	Absendermail:&nbsp;&nbsp;&nbsp;<input type="text" name="from_2" class="input-xlarge" value="{{ from2 }}"><br /><br />
+	Betreff:&nbsp;&nbsp;&nbsp;<input type="text" name="head" class="input-xlarge" value="{{ head }}"></input><br /><br />
 	Text:<br /><br />
-	<textarea name="text" cols="50" rows="5">{{ text }}</textarea><br><br>
-	Anzahl der E-Mails (Maximal 15 pro Tag):&nbsp;&nbsp;&nbsp;<input type="number" name="count" value="{{ count }}"></input><br /><br />
-	<input type="checkbox" name="bedingung" value="confirmed" checked="checked"> Ich habe die Nutzungsbedingungen gelesen und bin mit ihnen einverstanden<br /><br />
+	<textarea name="text" rows="7" class="input-xxlarge">{{ text }}</textarea><br><br>
+	Anzahl der E-Mails (Maximal 15 pro Tag):&nbsp;&nbsp;&nbsp;<input type="number" name="count" class="input-small" value="{{ count }}"></input><br /><br />
+	<input type="checkbox" name="bedingung" value="confirmed" checked="checked"> Ich habe die Nutzungsbedingungen gelesen und bin einverstanden<br /><br />
 	<button type="submit" class="btn btn-large btn-primary">Senden</button><br /><br /><br /><br />
 	Nutzungsbedingungen:<br /><br />
 	Bitte beachte, dass die von dir eingetragenen Daten und das Versenden der E-Mails nicht gegen die jeweils geltenden Gesetze verstoßen.<br />

@@ -31,13 +31,17 @@
 		$activated = mysql_fetch_row($activated);
 		
 		//Eventuellen Fehler definieren
-		if ($activated[0] == 0)
+		if($email == '' or $password == '')
 		{
-			$error = "Dein Account wurde nocht nicht bestätigt.";
+			$error = "Bitte fülle alle Felder aus.";
 		}
 		elseif ($db_saltedHash[0] != $dc_saltedHash)
 		{
 			$error = "Login nicht erfolgreich. Du hast entweder eine falsche E-Mail oder ein falsches Passwort eingegeben.";
+		}
+		elseif ($activated[0] == 0)
+		{
+			$error = "Dein Account wurde nocht nicht bestätigt.";
 		}
 		elseif($activated[0] != 0 or $activated[0] != 1)
 		{

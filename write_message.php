@@ -26,8 +26,8 @@
 		<div class="site_title">Nachrichten schreiben</div><br /><br /><br /><br />
 			<div class="write_messages">
 				<form name="write_message" action="write_message.php" method="post">
-					Empfänger:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="receiver" size="40" maxlength="50" autofocus/><br /><br />
-					Nachricht:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="message" cols="10" rows="5" maxlength="999"></textarea><br /><br /><br />
+					Empfänger:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="receiver" class="input-xlarge" maxlength="50" autofocus/><br /><br />
+					Nachricht:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="message" rows="5" class="input-xxlarge" maxlength="999"></textarea><br /><br /><br />
 					<div class="center">
 					<button type="submit" class="btn btn-large btn-primary">Senden</button>
 					</div>
@@ -36,11 +36,11 @@
 <?php
 		if(isset($_POST['receiver']) && $_POST['message'] == '')
 		{
-			echo "<div class='alert alert-block alert_message'>Bitte gib eine Nachricht ein.</div>";
+			echo "<div class='alert alert-block alert_message'>Bitte gib eine Nachricht ein.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 		}
 		elseif(isset($_POST['message']) && $_POST['receiver'] == '')
 		{
-			echo "<div class='alert alert-block alert_message'>Bitte gib einen Empfänger an.</div>";
+			echo "<div class='alert alert-block alert_message'>Bitte gib einen Empfänger an.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 		}
 		if(isset($_POST['receiver']) && isset($_POST['message']))
 		{
@@ -71,22 +71,30 @@
 			if($active[0] == '0')
 			{
 				//Kontakt hat Account noch nicht aktiviert
-				echo "<div class='alert alert-block alert_message'>Der ausgewählte Nutzer hat seinen Account noch nicht bestätigt, du kannst ihm erst eine Nachricht schicken wenn der Account aktiviert wurde.</div>";
+				echo "<div class='alert alert-block alert_message'>Der ausgewählte Nutzer hat seinen Account noch nicht bestätigt, du kannst ihm erst eine Nachricht schicken wenn der Account aktiviert wurde.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
+			}
+			elseif($receiver == '')
+			{
+				echo "<div class='alert alert-block alert_message'>Bitte gib einen Empfänger ein.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
+			}
+			elseif($message == '')
+			{
+				echo "<div class='alert alert-block alert_message'>Bitte gib eine Nachricht ein.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			elseif($fid[0] == 0)
 			{
 				//Empfänger nicht vorhanden
-				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil es ihn nicht gibt.</div>";
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil es ihn nicht gibt.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			elseif($fid[0] == $userid)
 			{
 				//Nachricht an sich selber
-				echo "<div class='alert alert-block alert_message'>Bist du schon so verzweifelt, dass du mit dir selber chatten willst?</div>";
+				echo "<div class='alert alert-block alert_message'>Bist du schon so verzweifelt, dass du mit dir selber chatten willst?<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			elseif($friend[0] == 0)
 			{
 				//Empfänger nicht in Kontaktliste aber Anfrage gesendet
-				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er deine Kontaktanfrage noch nicht bestätigt hat oder du ihm noch keine gesendet hast.</div>";
+				echo "<div class='alert alert-block alert_message'>Du kannst &quot;".$receiver."&quot; keine Nachricht schreiben, weil er deine Kontaktanfrage noch nicht bestätigt hat oder du ihm noch keine gesendet hast.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			elseif($friend[0] == 1)
 			{
@@ -115,12 +123,12 @@
 				
 				$insert_message = "INSERT INTO `messages` (`from_id`, `to_id`, `content`) VALUES ('".$userid."', '".$fid[0]."', '".$cryptedMessage."')";
 				mysql_query($insert_message);
-				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='chat.php'>Nachrichtenverlauf</a> verschoben.</div>";
+				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='chat.php'>Nachrichtenverlauf</a> verschoben.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			else
 			{
 				//Unbekannter Fehler
-				echo "<div class='alert alert-block alert_message'>Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.</div>";
+				echo "<div class='alert alert-block alert_message'>Ein unbekannter Fehler ist aufgetreten, bitte <a href='contact.php'>kontaktiere</a> den Administrator.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 		}
 		mysql_close($sql);

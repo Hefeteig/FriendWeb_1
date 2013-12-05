@@ -37,7 +37,7 @@
 		}
 		else
 		{
-			$content = "<div class='alert alert-error'>Es ist ein Fehler bei der Entschlüsselung der Nachricht aufgetreten. Bitte <a href'contact.php'>kontaktiere</a> den Administrator";
+			$content = "<div class='alert alert-error'>Es ist ein Fehler bei der Entschlüsselung der Nachricht aufgetreten. Bitte <a href'contact.php'>kontaktiere</a> den Administrator<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 		}
 		
 		$chats[$i]['from_id'] = $row['from_id'];
@@ -113,7 +113,7 @@
 			//Input Feld
 			echo "
 				<form name='answer_form' action='chat.php' method='post' class='answer_form'>
-					<input type='text' name='message' size='40' maxlength='999' />
+					<input type='text' name='message' size='40' maxlength='999' class='input-xlarge' />
 					<input type='hidden' name='receiver' value='".$fname."' />
 				</form>
 			";

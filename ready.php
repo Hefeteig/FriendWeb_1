@@ -64,7 +64,7 @@
 		$params = array(
 			"name" => $_POST['Name'],
 			"mail" => $_POST['Mail'],
-			"register" => "<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button>" . $error . "</div>"
+			"register" => "<div class='alert alert-error'>" . $error . "<button type='button' class='close' data-dismiss='alert'>&times;</button></div>"
 		);
 		$template->display($params);
 	}
@@ -101,9 +101,10 @@
 		$pe = $password . $email;
 		$saltedHash = saltPassword($pe);
 		
-		$get_userid = "SELECT `name` FROM `users`";
+		$get_userid = "SELECT MAX(`userid`) AS last FROM `users`";
 		$users = mysql_query($get_userid);
-		$userid = mysql_num_rows($users) + 1;
+		$userid = mysql_fetch_row($users);
+		$userid = $userid[0] + 1;
 		$insert_users = "INSERT INTO `users` (`name`, `email`, `password`, `userid`, `active`) VALUES ('".$user."', '".$email."', '".$saltedHash."', '".$userid."', 0)";
 		mysql_query($insert_users);
 		
@@ -115,7 +116,7 @@
 		$template = $twig->loadTemplate('login.html');
 		$params = array(
 			"if_failed" => '',
-			"register" => "<div class='alert alert-success'>Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br />Wenn die Registrierung nicht innerhalb von 24 Stunden bestätigt wurde, wird der Link und die Registrierungsdaten gelöscht.</div>",
+			"register" => "<div class='alert alert-success'>Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br />Wenn die Registrierung nicht innerhalb von 24 Stunden bestätigt wurde, wird der Link und die Registrierungsdaten gelöscht.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>",
 			"email" => '',
 			"password" => '',
 			"Name" => '',
