@@ -5,10 +5,10 @@ nachrichten senden ohne neu zu laden
 nachrichten schreiben und verlauf in einem button
 nachrichten löschen nur im div und älter als
 Freundessuche vorschläge anzeigen
+Passwort vergessen erstellen
 Chat-Nachrichtenblöcke neueste oben
 Plugin: modifizierbare startseite, Datei upload
 email ändern erstellen
-Passwort vergessen erstellen
 email hashen
 Logo Link einfügen
 styles.css ungenutzte elemente entfernen

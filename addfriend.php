@@ -27,7 +27,7 @@
 			<div class="center">
 				<form name="search" action="addfriend.php" method="post">
 					<input type="text" class="input-xlarge" maxlength="50" name="searched_friend" autofocus/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button type="submit" class="btn btn-large btn-primary">Suchen</button>
+					<button type="submit" class="btn btn-primary">Suchen</button>
 				</form>
 			</div>
 <?php

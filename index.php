@@ -1,5 +1,4 @@
 <?php
-
 	function loadPlugin($name, $plugins)
 	{
 		include $name . "/main.php";
@@ -10,6 +9,7 @@
 	session_start();
 	if(isset($_COOKIE["userid"]) || isset($_SESSION["userid"]))
 	{
+		require 'db.php';
 		include("simplehtmldom/simple_html_dom.php");
 		include "plugin.php";
 			require_once './lib/Twig/Autoloader.php';
@@ -27,7 +27,6 @@
 		{
 			$id = $_SESSION["userid"];
 		}
-		require 'db.php';
 		
 		$plg = array();
 		$result = array();
@@ -37,8 +36,15 @@
 		
 		while ($data = mysql_fetch_array($result))
 		{
-			$add = $data[0];
-			array_push($plg, $add);
+			if($data[0] == "Startpage")
+			{
+				
+			}
+			else
+			{
+				$add = $data[0];
+				array_push($plg, $add);
+			}
 		}
 		
 		foreach($plg as $curplg)
@@ -101,7 +107,6 @@
 			
 			Plugin::$mainhtml->find("head", 0)->innertext .= "<script type=\"text/javascript\">".$template->render($params)."</script>";
 			Plugin::$mainhtml->find("head", 0)->innertext .= "<script type=\"text/javascript\" src=\"js/init.js\"></script>";
-			
 			
 		echo Plugin::$mainhtml;
 	}
