@@ -69,7 +69,24 @@
 		<div class="site_title">Hallo</div>
 		<div class="login_causes">
 			<br /><br /><br /><br />
-			Am 08.12.2013 erscheint das erste Plugin mit dem du deine persönliche Startseite erstellen kannst.
+			<?php
+				$userid = $_SESSION['userid'][0];
+				require 'db.php';
+				
+				$startpage_active = "SELECT `content` FROM `startpage` WHERE `userid` = ".$userid."";
+				$sp= mysql_query($startpage_active);
+				$sp = mysql_fetch_row($sp);
+				$sp = $sp[0];
+
+				if($sp)
+				{
+					echo $sp;
+				}
+				else
+				{
+					echo "Dieser Text kann durch das Plugin &quot;Startseite modifizieren&quot; verändert werden.";
+				}
+			?>
 		</div>
 	</div>
 	<div id="friends">

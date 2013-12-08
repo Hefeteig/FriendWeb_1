@@ -22,7 +22,7 @@
 		$template->display($params);
 		
 		$changes = "";
-		/*$sp_settings = false;
+		$sp_settings = false;
 		if($_POST['startpage_on'])
 		{
 			$insert_sp_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('Startpage', ".$userid.")";
@@ -38,7 +38,7 @@
 			$delete_sp_2 = "DELETE FROM `startpage` WHERE `userid` = ".$userid."";
 			mysql_query($delete_sp_1);
 			mysql_query($delete_sp_2);
-			$changes = "<div class='alert alert-success'>Das Plugin Startpage wurde erfolgreich deaktiviert.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
+			$changes = "<div class='alert alert-success'>Das Plugin &quot;Startseite modifizieren&quot; wurde erfolgreich deaktiviert.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 		}
 		elseif($_POST['startpage_settings'])
 		{
@@ -56,7 +56,7 @@
 		
 		$check_startpage = "SELECT `plugin` FROM `activatedplugins` WHERE `plugin` = 'Startpage' AND `user` = ".$userid."";
 		$startpage = mysql_query($check_startpage);
-		$startpage = mysql_fetch_row($startpage);*/
+		$startpage = mysql_fetch_row($startpage);
 ?>
 	<div id="protokoll">
 		<br /><br /><br />
@@ -65,8 +65,6 @@
 			<br />
 			<?php echo $changes; ?>
 			<br /><br />
-			Am 08.12.2013 erscheint das erste Plugin mit dem du deine persönliche Startseite erstellen kannst.
-			<?php/*
 			<b><i class="icon-pencil"></i> Startseite modifizieren</b><br /><br />
 			Wie der Name schon sagt kannst du damit deine eigene Startseite erstellen, die erscheint wenn du dich einloggst.<br />
 			Egal ob es einfach nur eine Erinnerung an einen Termin oder ein lustiges Bild sein soll, du hast die Wahl!<br />
@@ -95,7 +93,6 @@
 					}
 				?>
 			</form>
-			*/?>
 		</div>
 	</div>
 	<div id="friends">
