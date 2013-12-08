@@ -52,7 +52,12 @@
 				$this->javascripts[$a] = arrayToString(file($path . "/js/" . trim($this->javascripts[$a])));
 			}
 			
-			$this->html = file_get_html($path . "\contents.html");
+			
+			ob_start();
+			require($path . "\contents.php");
+			$data = ob_get_clean();
+			ob_end_clean();
+			$this->html = str_get_html($data);
 			
 			$this->init_Listeners = array();
 		}
