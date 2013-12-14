@@ -1,18 +1,29 @@
-
-kontakformular
+﻿
+E-Mail und Passwort auf Loginseite
 nachrichten abrufen nur im chat div (daten abgetrennt an js, dann divs erstellen)
 nachrichten senden ohne neu zu laden
 nachrichten schreiben und verlauf in einem button
+kontakformular
 nachrichten löschen nur im div und älter als
 Freundessuche vorschläge anzeigen
 Passwort vergessen erstellen
 Chat-Nachrichtenblöcke neueste oben
-Plugin: modifizierbare startseite, Datei upload
+Plugin:  Datei upload
 email ändern erstellen
-email hashen
+email verschlüsseln
 Logo Link einfügen
 styles.css ungenutzte elemente entfernen
 zu langer kontaktname chrome
 
 
 <body onload="init()">; index.php l. 37; simple_html_dom.php l. 1234
+
+
+
+		User ->	Cloud für Musik (Musik/data)
+	Regeln:
+		- max. 20 (?) MB Dateigröße
+		- max. 5 Dateien
+		- öffentlich oder nur privat
+		- Zeitpunkt bzw. Abstände beim Abspielen
+		- Keine Haftung, Kontrolle un d evtl. keine Verschlüsselung der Inhalte

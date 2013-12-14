@@ -66,21 +66,52 @@
 	</div>
 	<div id="protokoll">
 		<br /><br /><br /><br />
-		<div class="site_title">Hallo</div>
+		<?php
+			$userid = $_SESSION['userid'][0];
+			require 'db.php';
+			$get_user = "SELECT `name` FROM `users` WHERE `userid` = '".$userid."'";
+			$user = mysql_query($get_user);
+			$user = mysql_fetch_row($user);
+		?>
+		<div class="site_title">Hallo <?php echo $user[0]; ?></div>
 		<div class="login_causes">
 			<br /><br /><br /><br />
 			<?php
-				$userid = $_SESSION['userid'][0];
-				require 'db.php';
-				
 				$startpage_active = "SELECT `content` FROM `startpage` WHERE `userid` = ".$userid."";
 				$sp= mysql_query($startpage_active);
 				$sp = mysql_fetch_row($sp);
 				$sp = $sp[0];
-
-				if($sp)
+				
+				if($sp != '')
 				{
-					echo $sp;
+					function decodeRand($str, $seed)
+					{
+						mt_srand($seed);
+						$blocks = explode('-', $str);
+						$out = array();
+						foreach ($blocks as $block)
+						{
+							$ord = (intval($block) - mt_rand(350, 16000)) / 3;
+							$out[] = chr($ord);
+						}
+						mt_srand();
+						return implode('', $out);
+					}
+					$seed = $userid + 284917;
+					$sp_1 = decodeRand($sp, $seed);
+				}
+				elseif($sp === '')
+				{
+					$sp_1 = "Du hast das Plugin &quot;Startseite modifizieren&quot; aktiviert und kannst nun diesen Text in den Einstellungen verändern.";
+				}
+				
+				if($sp_1)
+				{
+					echo $sp_1;
+				}
+				elseif($sp_2)
+				{
+					echo $sp_2;
 				}
 				else
 				{

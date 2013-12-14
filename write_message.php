@@ -123,7 +123,8 @@
 				
 				$insert_message = "INSERT INTO `messages` (`from_id`, `to_id`, `content`) VALUES ('".$userid."', '".$fid[0]."', '".$cryptedMessage."')";
 				mysql_query($insert_message);
-				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den <a href='chat.php'>Nachrichtenverlauf</a> verschoben.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
+				echo "<div class='alert alert-success alert_message'>Nachricht erfolgreich versendet. Der Chat wurde in den
+					<a href='chat.php'>Nachrichtenverlauf</a> verschoben.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			}
 			else
 			{

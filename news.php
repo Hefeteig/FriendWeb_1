@@ -25,6 +25,8 @@
 		<br /><br /><br />
 		<div class="site_title">News</div><br /><br /><br />
 		<div class="news_article">
+			<b><i class="icon-ok"></i> 08.12.2013 23:30</b><br /><br />
+			Das Plugin "Startseite modifizieren" ist erschienen.<br /><br /><br /><br />
 			<b><i class="icon-ok"></i> 01.12.2013 23:30</b><br /><br />
 			FriendWeb ist online.
 		</div>

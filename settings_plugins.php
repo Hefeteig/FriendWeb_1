@@ -49,7 +49,33 @@
 			//Filtern (bis auf HTML Elemente)
 			$content = trim($_POST['content']);
 			$content = mysql_real_escape_string($content);
-			$update_content = "UPDATE `startpage` SET `content` = '".$content."' WHERE `userid` = '".$userid."'";
+			$content = str_replace('\n', '<br />', $content);
+			
+			if($content != '')
+			{
+				//Verschlüsseln
+				//Seed errechnen
+				$seed = $userid + 284917;
+				
+				function encodeRand($str, $seed)
+				{
+					mt_srand($seed);
+					$out = array();
+					for ($x=0, $l=strlen($str); $x<$l; $x++)
+					{
+						$out[$x] = (ord($str[$x]) * 3) + mt_rand(350, 16000);
+					}
+					mt_srand();
+					return implode('-', $out);
+				}
+				$cryptedcontent = encodeRand($content, $seed);
+			}
+			else
+			{
+				$content = '';
+			}
+			
+			$update_content = "UPDATE `startpage` SET `content` = '".$cryptedcontent."' WHERE `userid` = '".$userid."'";
 			mysql_query($update_content);
 			$changes = "<div class='alert alert-success'>Einstellungen gespeichert.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 		}
@@ -68,7 +94,7 @@
 			<b><i class="icon-pencil"></i> Startseite modifizieren</b><br /><br />
 			Wie der Name schon sagt kannst du damit deine eigene Startseite erstellen, die erscheint wenn du dich einloggst.<br />
 			Egal ob es einfach nur eine Erinnerung an einen Termin oder ein lustiges Bild sein soll, du hast die Wahl!<br />
-			Du kannst sowohl einen einfachen Text schreiben, aber auch HTML verwenden.<br /><br />
+			Du kannst sowohl einen einfachen Text schreiben, aber auch HTML verwenden. Die eingetragenen Daten werden natürlich auch verschlüsselt.<br /><br />
 			<form name="startpage" action="settings_plugins.php" method="post">
 				<?php
 					if($startpage == 0)
@@ -86,6 +112,30 @@
 						$content = mysql_query($content_query);
 						$content = mysql_fetch_row($content);
 						$content = $content[0];
+						
+						if($content == '')
+						{
+							$content = '';
+						}
+						else
+						{
+							function decodeRand($str, $seed)
+							{
+								mt_srand($seed);
+								$blocks = explode('-', $str);
+								$out = array();
+								foreach ($blocks as $block)
+								{
+									$ord = (intval($block) - mt_rand(350, 16000)) / 3;
+									$out[] = chr($ord);
+								}
+								mt_srand();
+								return implode('', $out);
+							}
+							$seed = $userid + 284917;
+							$content = decodeRand($content, $seed);
+						}
+						
 						echo "Inhalt:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name='content' rows='5' class='input-xxlarge' maxlength='1500' autofocus>";
 						echo $content;
 						echo "</textarea><br /><br />";
