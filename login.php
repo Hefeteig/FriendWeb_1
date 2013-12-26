@@ -35,17 +35,17 @@
 		{
 			$error = "Bitte fülle alle Felder aus.";
 		}
-		elseif ($db_saltedHash[0] != $dc_saltedHash)
+		elseif ($db_saltedHash[0] != $dc_saltedHash && $activated[0] == 1)
 		{
 			$error = "Login nicht erfolgreich. Du hast entweder eine falsche E-Mail oder ein falsches Passwort eingegeben.";
-		}
-		elseif ($activated[0] == 0)
-		{
-			$error = "Dein Account wurde nocht nicht bestätigt.";
 		}
 		elseif($activated[0] != 0 or $activated[0] != 1)
 		{
 			$error = "Es gibt keinen Account mit diesen Daten.";
+		}
+		elseif ($activated[0] == 0)
+		{
+			$error = "Dein Account wurde nocht nicht bestätigt.";
 		}
 		else
 		{

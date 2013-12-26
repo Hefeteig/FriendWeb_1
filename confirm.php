@@ -9,18 +9,32 @@
 	
 	if($userid)
 	{
-		$set_active = "UPDATE `users` SET `active` = 1 WHERE `userid` = ".$userid."";
-		mysql_query($set_active);
+		$existing = "SELECT `active` FROM `users` WHERE `userid` = ".$userid."";
+		$exists = mysql_query($existing);
+		$exists = mysql_fetch_row($exists);
 		
-		$set_mailservice = "INSERT INTO `mailservice` (`userid`, `written_emails`) VALUES (".$userid.", 0)";
-		mysql_query($set_mailservice);
+		$message = '';
 		
-		$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
-		$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
-		mysql_query($insert_activatedplugins_1);
-		mysql_query($insert_activatedplugins_2);
-		
-		mysql_close($sql);
+		if($exists[0] == 1)
+		{
+			$message = "Du hast bereits deinen Account best&auml;tigt.";
+		}
+		else
+		{
+			$set_active = "UPDATE `users` SET `active` = 1 WHERE `userid` = ".$userid."";
+			mysql_query($set_active);
+			
+			$set_mailservice = "INSERT INTO `mailservice` (`userid`, `written_emails`) VALUES (".$userid.", 0)";
+			mysql_query($set_mailservice);
+			
+			$insert_activatedplugins_1 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('MainStructure', ".$userid.")";
+			$insert_activatedplugins_2 = "INSERT INTO `activatedplugins` (`plugin`, `user`) VALUES ('StyleStructure', ".$userid.")";
+			mysql_query($insert_activatedplugins_1);
+			mysql_query($insert_activatedplugins_2);
+			
+			mysql_close($sql);
+			$message = "Dein Account wurde erfolgreich best&auml;tigt.";
+		}
 		
 		require_once "lib/Twig/Autoloader.php";
 		Twig_Autoloader::register();
@@ -28,7 +42,7 @@
 		$twig = new Twig_Environment($loader, array());
 		$template = $twig->loadTemplate("login.html");
 		$params = array(
-			"if_failed" => "<div class='alert alert-info'>Dein Account wurde erfolgreich best&auml;tigt.</div>",
+			"if_failed" => "<div class='alert alert-info'>".$message."</div>",
 			"register" => "",
 			"email" => "",
 			"password" => "",

@@ -1,4 +1,11 @@
 
+.login_font
+{
+	font-family: arial; 
+	font-size: 18px;
+	color: white;
+}
+
 body
 {
 	background-color: #808080;
@@ -380,9 +387,9 @@ body
 .login_field
 {
 	position: absolute;
-	top: 2%;
+	top: 10px;
 	right: 0%;
-	width: 25%;
+	width: 30%;
 }
 
 .pro_points

@@ -1,5 +1,4 @@
 ﻿
-E-Mail und Passwort auf Loginseite
 nachrichten abrufen nur im chat div (daten abgetrennt an js, dann divs erstellen)
 nachrichten senden ohne neu zu laden
 nachrichten schreiben und verlauf in einem button

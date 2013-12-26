@@ -116,7 +116,7 @@
 		$template = $twig->loadTemplate('login.html');
 		$params = array(
 			"if_failed" => '',
-			"register" => "<div class='alert alert-success'>Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br />Wenn die Registrierung nicht innerhalb von 24 Stunden bestätigt wurde, wird der Link und die Registrierungsdaten gelöscht.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>",
+			"register" => "<div class='alert alert-success'>Das Registrierungsformular wurde erfolgreich an deine E-Mail-Adresse versendet, bitte schau auch im Spamordner nach.<br /><button type='button' class='close' data-dismiss='alert'>&times;</button></div>",
 			"email" => '',
 			"password" => '',
 			"Name" => '',
